@@ -1,0 +1,41 @@
+.list {
+  margin-top: 40px;
+
+  &__item {
+    padding: 25px;
+    background-color: var(--def);
+    border: 1px solid var(--base);
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin-right: 15px;
+    }
+  }
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  h2 {
+    font-size: 24px;
+  }
+}
+
+.amount {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.tag {
+  padding: 5px;
+  border: 1px solid var(--neutral-placeholder);
+  color: var(--neutral-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 300;
+}

@@ -1,8 +1,7 @@
 :root {
-  --title-size: 24px;
   --fsize: 18px;
 
-  --default-color: #fff;
+  --def: #fff;
 
   --base: #dcdfe6;
   --light: #e4e7ed;
@@ -13,29 +12,28 @@
 
   --neutral-main: #232425;
   --neutral-primary: #303133;
-  --neutral-extra: #323a3a;
   --neutral-regular: #606266;
   --neutral-secondary: #909399;
   --neutral-placeholder: #c0c4cc;
 
   /* ------------------------------- */
 
-  --accent-color: #b21430;
+  --accent-main: #b21430;
+  --accent-primary: #0a4587;
+  --accent-regular: #e07028;
+
+  /* ------------------------------- */
 
   @media (max-width: 570px) {
-    --title-size: 18px;
     --fsize: 16px;
   }
   @media (max-width: 495px) {
-    --title-size: 16px;
     --fsize: 14px;
   }
   @media (max-width: 440px) {
-    --title-size: 14px;
     --fsize: 12px;
   }
   @media (max-width: 395px) {
-    --title-size: 12px;
     --fsize: 10px;
   }
 }

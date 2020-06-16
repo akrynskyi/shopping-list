@@ -1,5 +1,6 @@
 @use './assets/styles/reset.scss';
 @use './assets/styles/vars.scss';
+@use './assets/styles/button.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
@@ -9,7 +10,7 @@ body {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 740px;
   width: 100%;
   margin: 0 auto;
 }

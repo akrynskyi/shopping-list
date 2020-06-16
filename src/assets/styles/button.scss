@@ -1,0 +1,67 @@
+.btn {
+  position: relative;
+  font-family: inherit;
+  font-weight: 400;
+  padding: 10px 20px;
+  background-color: var(--accent-main);
+  color: var(--neutral-placeholder);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: var(--def);
+    padding: 50%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform .75s, opacity .75s linear;
+  }
+
+  &:active::before {
+    transition: 0s;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
+  &.b-icon {
+    padding: 5px;
+  }
+
+  &.gap-right {
+    margin-right: 25px;
+  }
+
+  & > i {
+    font-size: 10px;
+    margin-left: 10px;
+  }
+
+  &.danger {
+    border: 1px solid var(--accent-main);
+  }
+
+  &-secondary {
+    color: var(--neutral-primary);
+    background: transparent;
+    border: 1px solid var(--neutral-secondary);
+    transition: border .2s linear;
+
+    &::before {
+      background-color: var(--neutral-secondary);
+    }
+
+    &:hover {
+      border: 1px solid var(--base);
+    }
+  }
+}
