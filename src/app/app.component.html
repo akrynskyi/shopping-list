@@ -1,7 +1,21 @@
 <main class="view">
   <div class="container">
-    <app-form></app-form>
-    <app-list></app-list>
+    <app-form
+      (created)="getItem($event)"
+    ></app-form>
+    <ng-container
+      *ngIf="list.length else placeholder"
+    >
+      <app-list
+        [list]="list"
+        (action)="actionHandle($event)"
+      ></app-list>
+    </ng-container>
+    <ng-template #placeholder>
+      <div class="placeholder">
+        <p>List is empty</p>
+      </div>
+    </ng-template>
   </div>
 </main>
 

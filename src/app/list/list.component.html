@@ -1,12 +1,38 @@
 <ul class="list">
-  <li class="list__item">
-    <div class="group">
-      <h2 class="name">Title</h2>
-      <!-- <span class="date">Date</span> -->
-      <span class="tag">Copy</span>
+  <li
+    class="list__item"
+    *ngFor="let item of list"
+  >
+    <div class="group gap">
+      <h2 class="name">
+        {{ item.name | titlecase }}
+      </h2>
+      <span
+        class="tag"
+        *ngIf="item.copy"
+      >
+        Copy
+      </span>
     </div>
-    <p class="amount">Amount</p>
-    <button class="btn btn-secondary danger">Delete</button>
-    <button class="btn btn-secondary">Clone</button>
+    <p class="amount">
+      <b>{{ item.option | titlecase }}: </b>
+      <span>{{ item.quantity }}</span>
+    </p>
+    <div class="group">
+      <button
+        class="btn btn-secondary danger"
+        (click)="remove(item.id)"
+      >Delete</button>
+      <div class="clone">
+        <span
+          class="clone__popover"
+          [class.active]="isCloned(item)"
+        >Item cloned!</span>
+        <button
+          class="btn btn-secondary"
+          (click)="clone(item.id, item)"
+        >Clone</button>
+      </div>
+    </div>
   </li>
 </ul>

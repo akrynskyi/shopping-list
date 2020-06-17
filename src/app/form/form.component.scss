@@ -10,9 +10,17 @@
   }
 }
 
+.form-control {
+  margin-bottom: 20px;
+
+  &.right {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 .input-field {
   width: 100%;
-  margin-bottom: 20px;
   padding: 10px 15px;
   border: 1px solid var(--neutral-placeholder);
   border-radius: 4px;

@@ -6,11 +6,15 @@
     background-color: var(--def);
     border: 1px solid var(--base);
 
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
     p {
       margin-bottom: 15px;
     }
 
-    button {
+    button:not(:last-child) {
       margin-right: 15px;
     }
   }
@@ -18,8 +22,11 @@
 
 .group {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+
+  &.gap {
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
 
   h2 {
     font-size: 24px;
@@ -38,4 +45,42 @@
   border-radius: 4px;
   font-size: 14px;
   font-weight: 300;
+}
+
+.clone {
+  position: relative;
+
+  &__popover {
+    position: absolute;
+    display: inline-block;
+    background-color: var(--base);
+    color: var(--neutral-main);
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+    line-height: 1.2;
+    padding: .2rem .5rem;
+    border-radius: 4px;
+    width: 75px;
+    bottom: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, 0%);
+    transition: all .3s linear;
+
+    &::after {
+      content: "";
+      position: absolute;
+      border: 5px solid transparent;
+      border-top-color: var(--base);
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.active {
+      opacity: 1;
+      transform: translate(-50%, -100%);
+    }
+  }
 }
