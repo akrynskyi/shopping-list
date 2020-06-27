@@ -17,7 +17,7 @@
     >
   </div>
   <div class="form-control right">
-    <select #select (change)="pick()">
+    <select #select (change)="option = select.value">
       <option value="amount">Amount</option>
       <option value="weight">Weight</option>
     </select>

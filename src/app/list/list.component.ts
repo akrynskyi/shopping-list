@@ -1,49 +1,52 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Purchase } from '../form/form.component';
-
-export interface Action {
-  elemId: number
-  type: string
-}
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Purchase, ShoppingService } from '../shared/shopping.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
-  @Input() list: Purchase[];
-  @Output() action = new EventEmitter<Action>();
-
+  list: Purchase[];
   clonedItem: Purchase;
+  editableItem: Purchase;
   timeoutHandle: any;
+  sub: Subscription;
 
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit(): void {
+    this.sub = this.shoppingService.getShoppingList()
+      .subscribe(list => this.list = list);
   }
 
-  remove(elemId: number) {
-    this.action.emit({
-      elemId,
-      type: 'remove'
-    });
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
-  clone(elemId: number, item: Purchase) {
+  edit(item: Purchase) {
+    this.editableItem = null;
+    this.shoppingService.editItem(item);
+  }
+
+  clone(item: Purchase) {
     clearTimeout(this.timeoutHandle);
-
     this.clonedItem = item;
     this.timeoutHandle = setTimeout(() => this.clonedItem = null, 1000);
+    this.shoppingService.cloneItem(item);
+  }
 
-    this.action.emit({
-      elemId,
-      type: 'clone'
-    });
+  remove(itemId: number) {
+    this.shoppingService.removeItem(itemId);
   }
 
   isCloned(item: Purchase) {
     return this.clonedItem === item;
+  }
+
+  isEditable(item: Purchase) {
+    return this.editableItem === item;
   }
 }

@@ -8,6 +8,8 @@
 
 :point_right: [`lesson-3 / component-interaction`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-3/component-interaction) | :cloud: [`deployment`](https://ng-interaction.web.app/)
 
-:point_right: [`lesson-4 / practice`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-4/practice) | :cloud: [`deployment`](https://shpping-list.web.app/)
+:point_right: [`lesson-4 / practice`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-4/practice) | :cloud: [`deployment`](#)
 
 :point_right: [`lesson-5 / directives`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-5/directives) | :cloud: [`deployment`](https://ng-direct.web.app/)
+
+:point_right: [`lesson-6 / services`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-6/services) | :cloud: [`deployment`](https://shpping-list.web.app/)

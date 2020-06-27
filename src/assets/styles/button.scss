@@ -34,16 +34,23 @@
   }
 
   &.b-icon {
-    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 12px;
+    background: transparent;
+    color: var(--neutral-regular);
+    border-radius: 50%;
+    transition: background .2s linear;
+
+    &:hover {
+      background: var(--light);
+    }
   }
 
   &.gap-right {
     margin-right: 25px;
-  }
-
-  & > i {
-    font-size: 10px;
-    margin-left: 10px;
   }
 
   &.danger {

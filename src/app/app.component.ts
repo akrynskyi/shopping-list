@@ -1,48 +1,20 @@
-import { Component } from '@angular/core';
-import { Purchase } from './form/form.component';
-import { Action } from './list/list.component';
+import { Component, OnInit } from '@angular/core';
+import { ShoppingService } from './shared/shopping.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  list: Purchase[] = [];
+  isEmpty: number;
 
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
-  getItem(item: Purchase) {
-    this.list.push(item);
+  ngOnInit(): void {
+    this.shoppingService.getShoppingList()
+      .subscribe(list => this.isEmpty = list.length);
   }
 
-  remove(id: number) {
-    this.list = this.list.filter(item => item.id !== id);
-  }
-
-  clone(id: number) {
-    const it = this.list.find(item => item.id === id);
-
-    this.list.push({
-      ...it,
-      id: Date.now(),
-      copy: true
-    });
-  }
-
-  actionHandle(action: Action) {
-    switch (action.type) {
-      case 'remove':
-        this.remove(action.elemId);
-        break;
-
-      case 'clone':
-        this.clone(action.elemId);
-        break;
-
-      default:
-        break;
-    }
-  }
 }

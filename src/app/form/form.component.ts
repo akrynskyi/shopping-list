@@ -1,12 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-
-export interface Purchase {
-  id: number
-  name: string
-  quantity: string
-  option: string
-  copy?: boolean
-}
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ShoppingService } from '../shared/shopping.service';
 
 @Component({
   selector: 'app-form',
@@ -17,19 +10,12 @@ export class FormComponent implements OnInit {
 
   @ViewChild('name') name: ElementRef;
   @ViewChild('quantity') quantity: ElementRef;
-  @ViewChild('select') select: ElementRef;
 
-  @Output() created = new EventEmitter<Purchase>();
   option = 'amount';
 
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
-  ngOnInit(): void {
-  }
-
-  pick() {
-    this.option = this.select.nativeElement.value;
-  }
+  ngOnInit(): void { }
 
   create() {
     const name: string = this.name.nativeElement.value;
@@ -40,7 +26,7 @@ export class FormComponent implements OnInit {
 
     if(!name.trim() && !val) return;
 
-    this.created.emit({
+    this.shoppingService.addItem({
       id: Date.now(),
       name,
       quantity,
