@@ -26,11 +26,7 @@ export class ShoppingService {
 
   addItem(item: Purchase) {
     this.list.next([...this.list.getValue(), item]);
-  }
-
-  editItem(item: Purchase) {
-    item.editDate = new Date();
-    this.list.next(this.list.getValue());
+    this.notifService.onAdd(item.name);
   }
 
   cloneItem(item: Purchase) {
@@ -44,7 +40,9 @@ export class ShoppingService {
     ]);
   }
 
-  removeItem(id: number) {
-    this.list.next(this.list.getValue().filter(item => item.id !== id));
+  removeItem(item: Purchase) {
+    if(this.notifService.onRemove(item)) {
+      this.list.next(this.list.getValue().filter(it => it.id !== item.id));
+    }
   }
 }

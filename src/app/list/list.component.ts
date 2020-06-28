@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Purchase, ShoppingService } from '../shared/shopping.service';
 import { Subscription } from 'rxjs';
 
@@ -9,9 +9,15 @@ import { Subscription } from 'rxjs';
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-  list: Purchase[];
+  @ViewChild('editInp') set editInput(inp: ElementRef) {
+    if(!inp) return;
+    inp.nativeElement.focus();
+  }
+
+  shoppingList: Purchase[];
   clonedItem: Purchase;
   editableItem: Purchase;
+  newName: string;
   timeoutHandle: any;
   sub: Subscription;
 
@@ -19,7 +25,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.shoppingService.getShoppingList()
-      .subscribe(list => this.list = list);
+      .subscribe(list => this.shoppingList = list);
   }
 
   ngOnDestroy(): void {
@@ -27,8 +33,17 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   edit(item: Purchase) {
+    this.editableItem = item;
+    this.newName = item.name;
+  }
+
+  save(item: Purchase) {
     this.editableItem = null;
-    this.shoppingService.editItem(item);
+
+    if(this.newName === item.name) return;
+    item.name = this.newName;
+    item.editDate = new Date();
+    item.copy = false;
   }
 
   clone(item: Purchase) {
@@ -38,8 +53,8 @@ export class ListComponent implements OnInit, OnDestroy {
     this.shoppingService.cloneItem(item);
   }
 
-  remove(itemId: number) {
-    this.shoppingService.removeItem(itemId);
+  remove(item: Purchase) {
+    this.shoppingService.removeItem(item);
   }
 
   isCloned(item: Purchase) {

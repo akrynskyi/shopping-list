@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ShoppingService } from '../shared/shopping.service';
+import { NotificationService } from '../shared/notification.service';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +14,10 @@ export class FormComponent implements OnInit {
 
   option = 'amount';
 
-  constructor(private shoppingService: ShoppingService) { }
+  constructor(
+    private shoppingService: ShoppingService,
+    private notifService: NotificationService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -24,7 +28,11 @@ export class FormComponent implements OnInit {
     const quantity: string = this.option === 'amount' ? `${val}`
     : this.option === 'weight' && val < 1000 ? `${val}g` : `${val / 1000}kg`;
 
-    if(!name.trim() && !val) return;
+    if(!name.trim()) {
+      this.notifService.onEmpty('name');
+      this.name.nativeElement.focus();
+      return;
+    };
 
     this.shoppingService.addItem({
       id: Date.now(),

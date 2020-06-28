@@ -8,13 +8,13 @@ import { ShoppingService } from './shared/shopping.service';
 })
 export class AppComponent implements OnInit {
 
-  isEmpty: number;
+  isEmpty: boolean;
 
   constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit(): void {
     this.shoppingService.getShoppingList()
-      .subscribe(list => this.isEmpty = list.length);
+      .subscribe(list => this.isEmpty = !!list.length);
   }
 
 }
