@@ -1,4 +1,6 @@
-<ul class="list">
+<h1 class="headline">{{ shoppingService.listName | titlecase }}</h1>
+
+<ul class="list" *ngIf="shoppingList.length else placeholder">
   <li
     class="list__item"
     *ngFor="let item of shoppingList"
@@ -76,3 +78,9 @@
     </div>
   </li>
 </ul>
+
+<ng-template #placeholder>
+  <div class="placeholder">
+    <p>List is empty</p>
+  </div>
+</ng-template>

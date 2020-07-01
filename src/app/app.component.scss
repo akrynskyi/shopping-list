@@ -1,14 +1,9 @@
 .view {
   min-height: 100vh;
   background-color: var(--lighter);
-  padding: 80px 0px;
 }
 
-.placeholder {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  padding: 25px;
-  background-color: var(--def);
-  border: 1px solid var(--base);
+.content {
+  padding-top: calc(80px + var(--navbar-height));
+  padding-bottom: 80px;
 }

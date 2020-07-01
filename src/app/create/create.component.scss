@@ -1,0 +1,37 @@
+.history {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--def);
+    border: 1px solid var(--base);
+    border-radius: 50px;
+  }
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+
+  & > i {
+    position: absolute;
+    left: 15px;
+    font-size: 12px;
+    color: var(--neutral-regular);
+  }
+}
+
+.name-input {
+  width: 100%;
+  padding: 10px 15px 10px 35px;
+  background-color: transparent;
+  border-radius: 50px;
+
+  &:focus {
+    background-color: var(--lightex);
+  }
+}

@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
   option = 'amount';
 
   constructor(
-    private shoppingService: ShoppingService,
+    public shoppingService: ShoppingService,
     private notifService: NotificationService
   ) { }
 

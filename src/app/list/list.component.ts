@@ -21,7 +21,7 @@ export class ListComponent implements OnInit, OnDestroy {
   timeoutHandle: any;
   sub: Subscription;
 
-  constructor(private shoppingService: ShoppingService) { }
+  constructor(public shoppingService: ShoppingService) { }
 
   ngOnInit(): void {
     this.sub = this.shoppingService.getShoppingList()

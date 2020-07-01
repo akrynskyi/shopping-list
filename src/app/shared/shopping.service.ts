@@ -3,11 +3,11 @@ import { NotificationService } from './notification.service';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Purchase {
-  id: number
-  name: string
-  quantity: string
-  option: string
-  copy?: boolean
+  id: number,
+  name: string,
+  quantity: string,
+  option: string,
+  copy?: boolean,
   editDate?: Date
 }
 
@@ -16,6 +16,7 @@ export interface Purchase {
 })
 export class ShoppingService {
 
+  listName = 'New list';
   list = new BehaviorSubject<Purchase[]>([]);
 
   constructor(private notifService: NotificationService) { }

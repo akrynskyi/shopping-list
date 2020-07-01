@@ -8,13 +8,8 @@ import { ShoppingService } from './shared/shopping.service';
 })
 export class AppComponent implements OnInit {
 
-  isEmpty: boolean;
+  constructor() { }
 
-  constructor(private shoppingService: ShoppingService) { }
-
-  ngOnInit(): void {
-    this.shoppingService.getShoppingList()
-      .subscribe(list => this.isEmpty = !!list.length);
-  }
+  ngOnInit(): void { }
 
 }

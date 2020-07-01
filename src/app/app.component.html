@@ -1,14 +1,11 @@
 <main class="view">
-  <div class="container">
 
-    <app-form></app-form>
-    <app-list *ngIf="isEmpty else placeholder"></app-list>
+  <app-navbar></app-navbar>
 
-    <ng-template #placeholder>
-      <div class="placeholder">
-        <p>List is empty</p>
-      </div>
-    </ng-template>
+  <div class="container content">
+
+    <router-outlet></router-outlet>
 
   </div>
+
 </main>
