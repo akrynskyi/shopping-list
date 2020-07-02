@@ -8,17 +8,17 @@ export class NotificationService {
 
   constructor() { }
 
-  onAdd(name: string) {
-    alert(`📝 You add ${name.toLowerCase()} to your list`);
+  onAdd(itemName: string, listName: string) {
+    alert(`📝 You add ${itemName.toLowerCase()} to ${listName.toLowerCase()}`);
   }
 
   onEmpty(value: string) {
     alert(`💡 Field ${value.toLowerCase()} can't be empty...`);
   }
 
-  onRemove(item: Purchase) {
+  onRemove(item: Purchase, listName: string) {
     return confirm(
-      `🗑️ Are you sure to delete ${item.name.toLowerCase()} from your list? ${item.copy ? '[Copy]' : '[Original]'}`
+      `🗑️ Are you sure to delete ${item.name.toLowerCase()} from ${listName.toLowerCase()}? ${item.copy ? '[Copy]' : '[Original]'}`
     );
   }
 }

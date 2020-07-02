@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ShoppingService } from '../shared/shopping.service';
 import { NotificationService } from '../shared/notification.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-form',
@@ -16,10 +17,14 @@ export class FormComponent implements OnInit {
 
   constructor(
     public shoppingService: ShoppingService,
+    private titleService: Title,
     private notifService: NotificationService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.titleService
+      .setTitle(`Add item to ${this.shoppingService.listName.toLowerCase()} | Shopping List`);
+  }
 
   create() {
     const name: string = this.name.nativeElement.value;

@@ -1,43 +1,20 @@
 <h1 class="headline">{{ shoppingService.listName | titlecase }}</h1>
 
-<ul class="list" *ngIf="shoppingList.length else placeholder">
+<ul class="list" *ngIf="shoppingService.list.length else placeholder">
   <li
     class="list__item"
-    *ngFor="let item of shoppingList"
+    *ngFor="let item of shoppingService.list, let idx = index"
+    (click)="toDetail(item)"
   >
     <div class="group gap">
-
       <div class="row">
-        <div class="name" *ngIf="!isEditable(item)">
+        <div class="name">
+          <span class="num">{{ idx + 1 }}.</span>
           <span
             [title]="item.name"
           >
             {{ item.name | titlecase }}
           </span>
-          <button
-            class="btn b-icon"
-            title="Edit"
-            (click)="edit(item)"
-          >
-            <i class="fas fa-pen"></i>
-          </button>
-        </div>
-
-        <div class="edit" *ngIf="isEditable(item)">
-          <input
-            type="text"
-            class="edit-input"
-            (keydown.enter)="save(item)"
-            [(ngModel)]="newName"
-            #editInp
-          >
-          <button
-            class="btn b-icon save-btn"
-            title="Save"
-            (click)="save(item)"
-          >
-            <i class="far fa-save"></i>
-          </button>
         </div>
       </div>
 
@@ -49,7 +26,6 @@
           Copy
         </span>
       </div>
-
     </div>
 
     <p class="amount" *ngIf="item.quantity">
@@ -57,25 +33,6 @@
       <span>{{ item.quantity }}</span>
     </p>
 
-    <div class="group">
-      <button
-        class="btn btn-secondary danger"
-        (click)="remove(item)"
-      >Delete</button>
-
-      <div class="clone">
-        <span
-          class="clone__popover"
-          [class.active]="isCloned(item)"
-        >Item cloned!</span>
-
-        <button
-          class="btn btn-secondary"
-          (click)="clone(item)"
-        >Clone</button>
-      </div>
-
-    </div>
   </li>
 </ul>
 

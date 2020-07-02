@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { NotificationService } from './notification.service';
-import { BehaviorSubject } from 'rxjs';
 
 export interface Purchase {
   id: number,
@@ -17,33 +16,28 @@ export interface Purchase {
 export class ShoppingService {
 
   listName = 'New list';
-  list = new BehaviorSubject<Purchase[]>([]);
+  list: Purchase[] = [];
 
   constructor(private notifService: NotificationService) { }
 
-  getShoppingList() {
-    return this.list.asObservable();
-  }
-
   addItem(item: Purchase) {
-    this.list.next([...this.list.getValue(), item]);
-    this.notifService.onAdd(item.name);
+    this.list.push(item);
+    this.notifService.onAdd(item.name, this.listName);
   }
 
   cloneItem(item: Purchase) {
-    this.list.next([
-      ...this.list.getValue(),
-      {
-        ...item,
-        id: Date.now(),
-        copy: true
-      }
-    ]);
+    this.list.push({
+      ...item,
+      id: Date.now(),
+      copy: true
+    });
   }
 
   removeItem(item: Purchase) {
-    if(this.notifService.onRemove(item)) {
-      this.list.next(this.list.getValue().filter(it => it.id !== item.id));
+    if(this.notifService.onRemove(item, this.listName)) {
+      this.list = this.list.filter(it => it.id !== item.id);
+      return true;
     }
+    return false;
   }
 }
