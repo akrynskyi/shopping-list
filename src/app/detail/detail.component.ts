@@ -11,16 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class DetailComponent implements OnInit {
 
-  @ViewChild('editInp') set editInput(inp: ElementRef) {
-    if(!inp) return;
-    inp.nativeElement.focus();
-  }
-
   item: Purchase;
-  isCloned = false;
-  isEditable = false;
-  newName: string;
-  timeoutHandle: any;
 
   constructor(
     public shoppingService: ShoppingService,
@@ -47,33 +38,14 @@ export class DetailComponent implements OnInit {
       });
   }
 
-  edit() {
-    this.isEditable = true;
-    this.newName = this.item.name;
-  }
-
-  save() {
-    this.isEditable = false;
-
-    if(this.newName === this.item.name) return;
-
-    this.item.name = this.newName;
-    this.item.editDate = new Date();
-    this.item.copy = false;
-
-    this.titleService
-      .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
-  }
-
-  clone() {
-    clearTimeout(this.timeoutHandle);
-    this.isCloned = true;
-    this.timeoutHandle = setTimeout(() => this.isCloned = false, 1000);
-    this.shoppingService.cloneItem(this.item);
-  }
-
-  remove() {
-    if(!this.shoppingService.removeItem(this.item)) return;
-    this.router.navigate(['/list']);
+  toEdit() {
+    this.route.queryParams
+      .subscribe(query => {
+        if (+query.allowEdit) {
+          this.router.navigate(['edit'], { relativeTo: this.route });
+        } else {
+          this.router.navigate(['list'], { queryParams: { message: 'edit-deny'} });
+        }
+      });
   }
 }

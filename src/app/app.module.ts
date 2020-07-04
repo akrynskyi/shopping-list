@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { TitleCasePipe } from '@angular/common';
+import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { TitleCasePipe } from '@angular/common';
     FromNowPipe,
     NavbarComponent,
     CreateComponent,
-    DetailComponent
+    DetailComponent,
+    PlaceholderComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

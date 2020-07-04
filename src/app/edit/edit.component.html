@@ -1,0 +1,75 @@
+<div
+  class="list__item"
+  *ngIf="item"
+>
+  <div class="group gap">
+
+    <div class="row">
+      <div class="name" *ngIf="!isEditable">
+        <span
+          [title]="item.name"
+        >
+          {{ item.name | titlecase }}
+        </span>
+        <button
+          class="btn b-icon"
+          title="Edit"
+          (click)="edit()"
+        >
+          <i class="fas fa-pen"></i>
+        </button>
+      </div>
+
+      <div class="edit" *ngIf="isEditable">
+        <input
+          type="text"
+          class="edit-input"
+          (keydown.enter)="save()"
+          [(ngModel)]="newName"
+          #editInp
+        >
+        <button
+          class="btn b-icon save-btn"
+          title="Save"
+          (click)="save()"
+        >
+          <i class="far fa-save"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="helpers">
+      <span class="tag" *ngIf="item.editDate">
+        Edited: {{ item.editDate | fromNow }}
+      </span>
+      <span class="tag" *ngIf="item.copy">
+        Copy
+      </span>
+    </div>
+
+  </div>
+
+  <p class="amount" *ngIf="item.quantity">
+    <b>{{ item.option | titlecase }}: </b>
+    <span>{{ item.quantity }}</span>
+  </p>
+
+  <div class="group">
+    <button
+      class="btn btn-secondary danger"
+      (click)="remove()"
+    >Delete</button>
+
+    <div class="clone">
+      <span
+        class="clone__popover"
+        [class.active]="isCloned"
+      >Item cloned!</span>
+
+      <button
+        class="btn btn-secondary"
+        (click)="clone()"
+      >Clone</button>
+    </div>
+  </div>
+</div>

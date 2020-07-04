@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingService, Purchase } from '../shared/shopping.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
@@ -11,13 +11,12 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class ListComponent implements OnInit {
 
-  timeoutHandle: any;
-
   constructor(
     public shoppingService: ShoppingService,
     private titleCasePipe: TitleCasePipe,
     private titleService: Title,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -25,8 +24,9 @@ export class ListComponent implements OnInit {
       .setTitle(`${this.titleCasePipe.transform(this.shoppingService.listName)} | Shopping List`);
   }
 
-  toDetail(item: Purchase) {
-    this.router.navigate(['/detail', item.name, item.id]);
+  toDetail(item: Purchase, idx: number) {
+    const query = { allowEdit: (idx + 1) % 2 === 0 ? 1 : 0 };
+    this.router.navigate([item.name, item.id], { queryParams: query, relativeTo: this.route });
   }
 
 }
