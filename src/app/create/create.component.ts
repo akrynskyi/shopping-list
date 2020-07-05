@@ -21,6 +21,6 @@ export class CreateComponent implements OnInit {
   }
 
   toAddPage() {
-    this.router.navigate(['/add']);
+    this.router.navigate(['add']);
   }
 }

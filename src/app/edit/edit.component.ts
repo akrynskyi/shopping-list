@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Purchase, ShoppingService } from '../shared/shopping.service';
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe, Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,9 +17,9 @@ export class EditComponent implements OnInit {
   }
 
   item: Purchase;
-  isCloned = false;
-  isEditable = false;
   newName: string;
+  newQuantity: string;
+  isCloned = false;
   timeoutHandle: any;
 
   constructor(
@@ -27,7 +27,8 @@ export class EditComponent implements OnInit {
     private titleCasePipe: TitleCasePipe,
     private titleService: Title,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -37,32 +38,31 @@ export class EditComponent implements OnInit {
 
         if(!item) {
           this.item = null;
-          this.router.navigate(['/list']);
+          this.router.navigate(['list']);
           return;
         };
 
         this.item = item;
+        this.newName = item.name;
+        this.newQuantity = item.quantity;
+
         this.titleService
           .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
       });
   }
 
-  edit() {
-    this.isEditable = true;
-    this.newName = this.item.name;
-  }
-
   save() {
-    this.isEditable = false;
-
-    if(this.newName === this.item.name) return;
+    if(
+      this.newName === this.item.name
+      && this.newQuantity === this.item.quantity
+    ) return;
 
     this.item.name = this.newName;
+    this.item.quantity = this.newQuantity;
     this.item.editDate = new Date();
     this.item.copy = false;
 
-    this.titleService
-      .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
+    this.router.navigate(['list', this.item.name, this.item.id], { queryParamsHandling: 'merge'});
   }
 
   clone() {
@@ -74,6 +74,12 @@ export class EditComponent implements OnInit {
 
   remove() {
     if(!this.shoppingService.removeItem(this.item)) return;
-    this.router.navigate(['/list']);
+    this.router.navigate(['list']);
+    this.titleService
+      .setTitle(`${this.titleCasePipe.transform(this.shoppingService.listName)} | Shopping List`);
+  }
+
+  prevRoute() {
+    this.location.back();
   }
 }

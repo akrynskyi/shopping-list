@@ -6,6 +6,7 @@ import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { EditComponent } from './edit/edit.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: CreateComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
       { path: ':name/:id/edit', component: EditComponent }
     ]
   },
-  { path: '**', redirectTo: ''}
+  { path: 'page-not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: 'page-not-found', pathMatch: 'full'}
 ]
 
 @NgModule({

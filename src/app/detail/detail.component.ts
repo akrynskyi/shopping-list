@@ -28,7 +28,7 @@ export class DetailComponent implements OnInit {
 
         if(!item) {
           this.item = null;
-          this.router.navigate(['/list']);
+          this.router.navigate(['list']);
           return;
         };
 
@@ -42,9 +42,9 @@ export class DetailComponent implements OnInit {
     this.route.queryParams
       .subscribe(query => {
         if (+query.allowEdit) {
-          this.router.navigate(['edit'], { relativeTo: this.route });
+          this.router.navigate(['edit'], { relativeTo: this.route, queryParamsHandling: 'merge' });
         } else {
-          this.router.navigate(['list'], { queryParams: { message: 'edit-deny'} });
+          this.router.navigate(['list'], { queryParams: { message: 'edit-denied'} });
         }
       });
   }

@@ -28,5 +28,4 @@ export class ListComponent implements OnInit {
     const query = { allowEdit: (idx + 1) % 2 === 0 ? 1 : 0 };
     this.router.navigate([item.name, item.id], { queryParams: query, relativeTo: this.route });
   }
-
 }

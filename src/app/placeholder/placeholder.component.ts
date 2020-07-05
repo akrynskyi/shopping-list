@@ -10,14 +10,12 @@ export class PlaceholderComponent implements OnInit {
 
   message = '💡 No item selected';
 
-  constructor(
-    private route: ActivatedRoute
-  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(query => {
-        if (query.message === 'edit-deny') {
+        if (query.message === 'edit-denied') {
           this.message = '🔒 You can not edit this item';
         } else {
           this.message = '💡 No item selected';

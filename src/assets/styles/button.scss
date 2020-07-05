@@ -47,6 +47,11 @@
     &:hover {
       background: var(--light);
     }
+
+    &.fix-size {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   &.gap-right {

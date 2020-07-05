@@ -12,6 +12,7 @@ import { DetailComponent } from './detail/detail.component';
 import { TitleCasePipe } from '@angular/common';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { EditComponent } from './edit/edit.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EditComponent } from './edit/edit.component';
     CreateComponent,
     DetailComponent,
     PlaceholderComponent,
-    EditComponent
+    EditComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
