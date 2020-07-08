@@ -7,21 +7,47 @@ import { DetailComponent } from './detail/detail.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';
 import { EditComponent } from './edit/edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './guards/auth.guard';
+import { EditGuard } from './guards/edit.guard';
 
 const routes: Routes = [
-  { path: '', component: CreateComponent },
-  { path: 'add', component: FormComponent },
+  {
+    path: '',
+    component: CreateComponent
+  },
+  {
+    path: 'add',
+    component: FormComponent
+  },
   {
     path: 'list',
     component: ListComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', component: PlaceholderComponent },
-      { path: ':name/:id', component: DetailComponent },
-      { path: ':name/:id/edit', component: EditComponent }
+      {
+        path: '',
+        component: PlaceholderComponent
+      },
+      {
+        path: ':name/:id',
+        component: DetailComponent
+      },
+      {
+        path: ':name/:id/edit',
+        component: EditComponent,
+        canDeactivate: [EditGuard]
+      }
     ]
   },
-  { path: 'page-not-found', component: PageNotFoundComponent},
-  { path: '**', redirectTo: 'page-not-found', pathMatch: 'full'}
+  {
+    path: 'page-not-found',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'page-not-found',
+    pathMatch: 'full'
+  }
 ]
 
 @NgModule({

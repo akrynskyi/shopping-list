@@ -51,11 +51,17 @@ export class EditComponent implements OnInit {
       });
   }
 
-  save() {
-    if(
+  get isEdited() {
+    if (
       this.newName === this.item.name
       && this.newQuantity === this.item.quantity
-    ) return;
+    ) return false;
+
+    return true;
+  }
+
+  save() {
+    if(!this.isEdited) return;
 
     this.item.name = this.newName;
     this.item.quantity = this.newQuantity;

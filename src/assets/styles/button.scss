@@ -76,4 +76,36 @@
       border: 1px solid var(--base);
     }
   }
+
+  &-invert {
+    color: var(--neutral-regular);
+    background: transparent;
+    border: 1px solid var(--neutral-placeholder);
+    transition: all .2s linear;
+    padding: 8px 20px;
+
+    &::before {
+      background-color: var(--light);
+    }
+
+    &:hover {
+      border: 1px solid var(--neutral-primary);
+      color: var(--neutral-primary);
+    }
+  }
+}
+
+.btn-clean {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 400;
+  color: var(--neutral-regular);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: color .2s linear;
+  padding: 8px 20px;
+
+  &:hover {
+    color: var(--neutral-primary);
+  }
 }

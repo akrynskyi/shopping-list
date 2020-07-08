@@ -20,7 +20,19 @@
 }
 
 .nav {
+  position: relative;
   display: flex;
+  align-items: center;
+  padding-right: 30px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 1px;
+    height: 35px;
+    background-color: var(--neutral-placeholder);
+  }
 
   & > li:not(:last-child) {
     margin-right: 15px;
@@ -50,5 +62,15 @@
     &.active {
       background: var(--light);
     }
+  }
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+
+  &__btn {
+    min-width: 85px;
   }
 }

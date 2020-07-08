@@ -41,5 +41,24 @@
       </li>
     </ul>
 
+    <ul class="auth">
+      <li *ngIf="!authService.isLogin">
+        <button
+          class="btn btn-invert auth__btn"
+          (click)="onLogin()"
+        >
+          Login
+        </button>
+      </li>
+      <li *ngIf="authService.isLogin">
+        <button
+          class="btn auth__btn"
+          (click)="onLogout()"
+        >
+          Logout
+        </button>
+      </li>
+    </ul>
+
   </div>
 </div>
