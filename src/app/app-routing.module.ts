@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './form/form.component';
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
-import { DetailComponent } from './detail/detail.component';
-import { PlaceholderComponent } from './placeholder/placeholder.component';
-import { EditComponent } from './edit/edit.component';
+import { DetailComponent } from './list/detail/detail.component';
+import { PlaceholderComponent } from './list/placeholder/placeholder.component';
+import { EditComponent } from './list/edit/edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { EditGuard } from './guards/edit.guard';
+import { PurchaseResolver } from './shared/purchase.resolver';
 
 const routes: Routes = [
   {
@@ -30,12 +31,14 @@ const routes: Routes = [
       },
       {
         path: ':name/:id',
-        component: DetailComponent
+        component: DetailComponent,
+        resolve: { purchase: PurchaseResolver }
       },
       {
         path: ':name/:id/edit',
         component: EditComponent,
-        canDeactivate: [EditGuard]
+        canDeactivate: [EditGuard],
+        resolve: { purchase: PurchaseResolver }
       }
     ]
   },

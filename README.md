@@ -14,8 +14,8 @@
 
 :point_right: [`lesson-6 / services`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-6/services)
 
-:point_right: [`lesson-7 / routing`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-7/routing) | :cloud: [`deployment`](https://shpping-list.web.app/)
+:point_right: [`lesson-7 / routing`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-7/routing)
 
 :point_right: [`lesson-8 / routing-child-routes`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-8/routing-child-routes)
 
-:point_right: [`lesson-9 / route-guard`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-9/route-guard)
+:point_right: [`lesson-9 / route-guard`](https://github.com/AnjKrynskyi/ng-learn/tree/lesson-9/route-guard) | :cloud: [`deployment`](https://shpping-list.web.app/)

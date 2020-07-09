@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PlaceholderComponent implements OnInit {
 
-  message = '💡 No item selected';
+  message = '';
 
   constructor(private route: ActivatedRoute) { }
 

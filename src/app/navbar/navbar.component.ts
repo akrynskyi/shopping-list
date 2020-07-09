@@ -15,8 +15,7 @@ export class NavbarComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onLogin() {
     this.authService.login(true);
@@ -25,23 +24,20 @@ export class NavbarComponent implements OnInit {
       {
         relativeTo: this.route,
         queryParams: { message: 'login' },
-        queryParamsHandling: 'merge'
       }
     );
   }
 
   onLogout() {
     this.authService.login(false);
-
     this.router.navigate(
       [],
       { relativeTo: this.route,
         queryParams: { message: 'logout' },
-        queryParamsHandling: 'preserve'
       }
     );
 
-    if(this.router.url.includes('/list')) {
+    if (this.router.url.includes('/list')) {
       this.router.navigate(
         [''],
         {
@@ -50,5 +46,4 @@ export class NavbarComponent implements OnInit {
       );
     }
   }
-
 }

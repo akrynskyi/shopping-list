@@ -1,0 +1,47 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  padding: 80px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.snackbar {
+  position: relative;
+  min-width: 340px;
+  max-width: 680px;
+  min-height: 45px;
+  border-radius: 4px;
+  background-color: var(--neutral-main);
+  color: var(--neutral-placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100%);
+  transition-duration: .4s;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0,0,.2,1);
+  box-shadow:
+    0 3px 5px -1px rgba(0,0,0,.2),
+    0 6px 10px 0 rgba(0,0,0,.14),
+    0 1px 18px 0 rgba(0,0,0,.12);
+
+  &__body {
+    font-size: 16px;
+  }
+
+  &.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

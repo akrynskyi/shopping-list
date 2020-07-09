@@ -8,11 +8,12 @@ import { FromNowPipe } from './pipes/from-now.pipe';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateComponent } from './create/create.component';
-import { DetailComponent } from './detail/detail.component';
+import { DetailComponent } from './list/detail/detail.component';
 import { TitleCasePipe } from '@angular/common';
-import { PlaceholderComponent } from './placeholder/placeholder.component';
-import { EditComponent } from './edit/edit.component';
+import { PlaceholderComponent } from './list/placeholder/placeholder.component';
+import { EditComponent } from './list/edit/edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DetailComponent,
     PlaceholderComponent,
     EditComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,

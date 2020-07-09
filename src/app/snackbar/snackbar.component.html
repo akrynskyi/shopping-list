@@ -1,0 +1,15 @@
+<div class="overlay">
+  <div class="snackbar" [class.active]="message">
+    <div class="snackbar__body">
+      {{ message }}
+    </div>
+    <div class="snackbar__action">
+      <button
+        class="btn b-icon small"
+        (click)="close()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>

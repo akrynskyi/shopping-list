@@ -48,9 +48,14 @@
       background: var(--light);
     }
 
-    &.fix-size {
-      width: 35px;
-      height: 35px;
+    &.small {
+      padding: 0;
+      width: 25px;
+      height: 25px;
+
+      &:hover {
+        background: var(--neutral-primary);
+      }
     }
   }
 

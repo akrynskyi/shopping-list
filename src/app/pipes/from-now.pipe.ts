@@ -9,7 +9,7 @@ export class FromNowPipe implements PipeTransform {
   transform(value: Date): string {
     const isDate = moment(value).isValid();
 
-    if(isDate) {
+    if (isDate) {
       return moment(value).fromNow();
     }
 

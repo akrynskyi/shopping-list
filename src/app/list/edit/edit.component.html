@@ -3,7 +3,6 @@
   *ngIf="item"
 >
   <div class="group gap fields">
-
     <div class="edit gap">
       <span class="field-name">Name</span>
       <input
@@ -16,7 +15,6 @@
     </div>
 
     <div class="group" *ngIf="item.quantity">
-
       <div class="edit gap-right">
         <span class="field-name">Option</span>
         <input
@@ -36,9 +34,7 @@
           [(ngModel)]="newQuantity"
         >
       </div>
-
     </div>
-
   </div>
 
   <div class="group between">

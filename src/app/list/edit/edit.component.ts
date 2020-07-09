@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Purchase, ShoppingService } from '../shared/shopping.service';
+import { Purchase, ShoppingService } from '../../shared/shopping.service';
 import { TitleCasePipe, Location } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -32,19 +32,16 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params
-      .subscribe(params => {
-        const item = this.shoppingService.list.find(item => item.id === +params.id)
+    this.route.data
+      .subscribe(data => {
+        this.item = data.purchase;
 
-        if(!item) {
-          this.item = null;
+        if (!data.purchase) {
           this.router.navigate(['list']);
-          return;
         };
 
-        this.item = item;
-        this.newName = item.name;
-        this.newQuantity = item.quantity;
+        this.newName = this.item.name;
+        this.newQuantity = this.item.quantity;
 
         this.titleService
           .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
@@ -61,7 +58,7 @@ export class EditComponent implements OnInit {
   }
 
   save() {
-    if(!this.isEdited) return;
+    if (!this.isEdited) return;
 
     this.item.name = this.newName;
     this.item.quantity = this.newQuantity;
@@ -79,7 +76,7 @@ export class EditComponent implements OnInit {
   }
 
   remove() {
-    if(!this.shoppingService.removeItem(this.item)) return;
+    if (!this.shoppingService.removeItem(this.item)) return;
     this.router.navigate(['list']);
     this.titleService
       .setTitle(`${this.titleCasePipe.transform(this.shoppingService.listName)} | Shopping List`);

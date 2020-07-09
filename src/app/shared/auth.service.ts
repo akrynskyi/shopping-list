@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +7,9 @@ export class AuthService {
 
   isLogin = false;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  get authStatus() {
+  get isAuthenticated() {
     return this.isLogin;
   }
 

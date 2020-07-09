@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Purchase, ShoppingService } from '../shared/shopping.service';
+import { Component, OnInit } from '@angular/core';
+import { Purchase, ShoppingService } from '../../shared/shopping.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
@@ -22,17 +22,14 @@ export class DetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params
-      .subscribe(params => {
-        const item = this.shoppingService.list.find(item => item.id === +params.id)
+    this.route.data
+      .subscribe(data => {
+        this.item = data.purchase;
 
-        if(!item) {
-          this.item = null;
+        if (!data.purchase) {
           this.router.navigate(['list']);
-          return;
         };
 
-        this.item = item;
         this.titleService
           .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
       });

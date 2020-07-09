@@ -81,6 +81,10 @@ export class ShoppingService {
 
   constructor(private notifService: NotificationService) { }
 
+  getItem(id: number): Purchase {
+    return this.list.find(item => item.id === id);
+  }
+
   addItem(item: Purchase) {
     this.list.push(item);
     this.notifService.onAdd(item.name, this.listName);
@@ -95,7 +99,7 @@ export class ShoppingService {
   }
 
   removeItem(item: Purchase) {
-    if(this.notifService.onRemove(item, this.listName)) {
+    if (this.notifService.onRemove(item, this.listName)) {
       this.list = this.list.filter(it => it.id !== item.id);
       return true;
     }

@@ -33,7 +33,7 @@ export class FormComponent implements OnInit {
     const quantity: string = this.option === 'amount' ? `${val}`
     : this.option === 'weight' && val < 1000 ? `${val}g` : `${val / 1000}kg`;
 
-    if(!name.trim()) {
+    if (!name.trim()) {
       this.notifService.onEmpty('name');
       this.name.nativeElement.focus();
       return;
