@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingService, Purchase } from '../shared/shopping.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
+import { ShoppingService, Purchase } from '../shared/services/shopping.service';
 
 @Component({
   selector: 'app-list',

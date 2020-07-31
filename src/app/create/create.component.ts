@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingService } from '../shared/shopping.service';
+import { ShoppingService } from '../shared/services/shopping.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 

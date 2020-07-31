@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Purchase, ShoppingService } from '../../shared/shopping.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
+import { Purchase, ShoppingService } from '../../shared/services/shopping.service';
 
 @Component({
   selector: 'app-detail',

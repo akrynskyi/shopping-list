@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ShoppingService } from '../shared/shopping.service';
-import { NotificationService } from '../shared/notification.service';
 import { Title } from '@angular/platform-browser';
+import { ShoppingService } from '../shared/services/shopping.service';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-form',

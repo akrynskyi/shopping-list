@@ -1,7 +1,7 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Purchase, ShoppingService } from './shopping.service';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Purchase, ShoppingService } from './services/shopping.service';
 
 @Injectable({
   providedIn: 'root'

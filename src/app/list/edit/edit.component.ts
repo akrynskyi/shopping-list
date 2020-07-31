@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Purchase, ShoppingService } from '../../shared/shopping.service';
 import { TitleCasePipe, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Purchase, ShoppingService } from '../../shared/services/shopping.service';
 
 @Component({
   selector: 'app-edit',
