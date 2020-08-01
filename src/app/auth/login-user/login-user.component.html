@@ -1,1 +1,61 @@
-<h1>Login</h1>
+<h1 class="heading">Sign in</h1>
+
+<form
+    class="form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+  <div class="form__control">
+    <label>Email</label>
+    <input
+      type="email"
+      class="input-field"
+      formControlName="email"
+    >
+    <div
+      class="form__errors"
+      *ngIf="form.get('email').touched && form.get('email').invalid"
+    >
+      <span *ngIf="form.get('email').hasError('required')">
+        💡 Email is required
+      </span>
+      <span *ngIf="form.get('email').hasError('email')">
+        ✉️ Incorrect email
+      </span>
+    </div>
+  </div>
+
+  <div class="form__control">
+    <label>Password</label>
+    <input
+      type="password"
+      class="input-field"
+      formControlName="password"
+    >
+    <div
+      class="form__errors"
+      *ngIf="form.get('password').touched && form.get('password').invalid"
+    >
+      <span *ngIf="form.get('password').hasError('required')">
+        💡 Password is required
+      </span>
+      <span *ngIf="form.get('password').hasError('minlength')">
+        🔑 Password min length is {{ form.get('password').getError('minlength').requiredLength }} characters, current length is {{ form.get('password').getError('minlength').actualLength }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form__action">
+    <button
+      type="submit"
+      class="btn"
+      [class.success]="form.valid"
+      [disabled]="form.invalid"
+      [title]="form.invalid ? 'complete all fields to continue' : 'sign in'"
+    >Sign in</button>
+    <div class="form__redirect">
+      <span>Don't have account yet?</span>
+      <a routerLink="/register">Create an account</a>
+    </div>
+  </div>
+</form>
