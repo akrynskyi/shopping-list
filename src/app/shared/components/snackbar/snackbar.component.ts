@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import messages from '../shared/utils/messages';
+import messages from '../../utils/messages';
 
 @Component({
   selector: 'app-snackbar',

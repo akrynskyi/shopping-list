@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingService } from '../shared/services/shopping.service';
+import { ShoppingService } from '../../shared/services/shopping.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  selector: 'app-overview-page',
+  templateUrl: './overview-page.component.html',
+  styleUrls: ['./overview-page.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class OverviewPageComponent implements OnInit {
 
   constructor(
     public shoppingService: ShoppingService,
