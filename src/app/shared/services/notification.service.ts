@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Purchase } from './shopping.service';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+
+  notify: Subject<boolean> = new Subject();
+  message: Subject<string> = new Subject();
 
   constructor() { }
 
@@ -20,5 +24,10 @@ export class NotificationService {
     return confirm(
       `🗑️ Are you sure to delete ${item.name.toLowerCase()} from ${listName.toLowerCase()}? ${item.copy ? '[Copy]' : '[Original]'}`
     );
+  }
+
+  confirm(msgCode: string): Observable<boolean> {
+    this.message.next(msgCode);
+    return this.notify.asObservable();
   }
 }

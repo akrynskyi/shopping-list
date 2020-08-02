@@ -1,1 +1,103 @@
-<p>register-user works!</p>
+<div class="wrapper">
+  <h1 class="heading">Create an account</h1>
+
+  <form
+      class="form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+    <div class="form__nav">
+      <a routerLink="/login">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to sign in</span>
+      </a>
+    </div>
+
+    <div class="form__control">
+      <label>Username</label>
+      <input
+        type="text"
+        class="input-field"
+        formControlName="username"
+      >
+      <div
+        class="form__errors"
+        *ngIf="form.get('username').touched && form.get('username').invalid"
+      >
+        <span *ngIf="form.get('username').hasError('required')">
+          💡 Username is required
+        </span>
+      </div>
+    </div>
+
+    <div class="form__control">
+      <label>Email</label>
+      <input
+        type="email"
+        class="input-field"
+        formControlName="email"
+      >
+      <div
+        class="form__errors"
+        *ngIf="form.get('email').touched && form.get('email').invalid"
+      >
+        <span *ngIf="form.get('email').hasError('required')">
+          💡 Email is required
+        </span>
+        <span *ngIf="form.get('email').hasError('email')">
+          ✉️ Incorrect email
+        </span>
+      </div>
+    </div>
+
+    <div class="form__control">
+      <label>Password</label>
+      <input
+        type="password"
+        class="input-field"
+        formControlName="password"
+      >
+      <div
+        class="form__errors"
+        *ngIf="form.get('password').touched && form.get('password').invalid"
+      >
+        <span *ngIf="form.get('password').hasError('required')">
+          💡 Password is required
+        </span>
+        <span *ngIf="form.get('password').hasError('minlength')">
+          🔑 Password min length is {{ form.get('password').getError('minlength').requiredLength }} characters, current length is {{ form.get('password').getError('minlength').actualLength }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form__control">
+      <label>Confirm password</label>
+      <input
+        type="password"
+        class="input-field"
+        formControlName="confirmPassword"
+      >
+      <div
+        class="form__errors"
+        *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').invalid"
+      >
+        <span *ngIf="form.get('confirmPassword').hasError('required')">
+          💡 Please confirm your password
+        </span>
+        <span *ngIf="form.get('confirmPassword').hasError('isMatch')">
+          🔑 {{ form.get('confirmPassword').getError('isMatch').message }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form__action">
+      <button
+        type="submit"
+        class="btn"
+        [class.success]="form.valid"
+        [disabled]="form.invalid"
+        [title]="form.invalid ? 'complete all fields to continue' : 'create'"
+      >Create</button>
+    </div>
+  </form>
+</div>

@@ -37,6 +37,17 @@
 
   &__body {
     font-size: 16px;
+    margin-right: 25px;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+
+    & > .confirm-btn {
+      margin-right: 10px;
+      color: var(--def);
+    }
   }
 
   &.active {
