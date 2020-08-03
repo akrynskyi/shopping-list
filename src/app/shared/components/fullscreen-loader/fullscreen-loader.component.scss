@@ -1,0 +1,11 @@
+@import '../../../../styles/mixins/overlay.mixin.scss';
+@import '~loaders.css/src/animations/ball-spin-fade-loader.scss';
+
+.overlay {
+  @include overlay;
+
+  align-items: center;
+  pointer-events: all;
+  background: rgba(0, 0, 0, .45);
+  backdrop-filter: blur(2px);
+}

@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ShoppingService } from '../shared/services/shopping.service';
-import { NotificationService } from '../shared/services/notification.service';
+import { ShoppingService } from '../../shared/services/shopping.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  selector: 'app-create-record-page',
+  templateUrl: './create-record-page.component.html',
+  styleUrls: ['./create-record-page.component.scss']
 })
-export class FormComponent implements OnInit {
+export class CreateRecordPageComponent implements OnInit {
 
   @ViewChild('name') name: ElementRef;
   @ViewChild('quantity') quantity: ElementRef;

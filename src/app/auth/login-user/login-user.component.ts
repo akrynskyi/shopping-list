@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { AuthService, UserCred } from 'src/app/shared/services/auth.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-login-user',
@@ -13,7 +15,9 @@ export class LoginUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private titleService: Title
+    private titleService: Title,
+    private auth: AuthService,
+    private ns: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +33,16 @@ export class LoginUserComponent implements OnInit {
   }
 
   onSubmit() {
+    const credentials = this.form.value as UserCred;
 
+    if (this.form.invalid) return;
+    this.ns.loading.next(true);
+
+    this.auth.login(credentials)
+      .subscribe(user => {
+        this.ns.loading.next(false);
+        console.log(user);
+        this.form.reset();
+      });
   }
 }

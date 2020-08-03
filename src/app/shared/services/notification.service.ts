@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Purchase } from './shopping.service';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class NotificationService {
 
   notify: Subject<boolean> = new Subject();
   message: Subject<string> = new Subject();
+  loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor() { }
 

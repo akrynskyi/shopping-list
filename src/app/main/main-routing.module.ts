@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '../shared/layouts/main-layout/main-layout.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
+import { CreateRecordPageComponent } from './create-record-page/create-record-page.component';
+import { RecordsPageComponent } from './records-page/records-page.component';
 
 // const routes: Routes = [
 //     path: 'home',
@@ -47,7 +49,9 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: OverviewPageComponent }
+      { path: '', component: OverviewPageComponent },
+      { path: 'create', component: CreateRecordPageComponent },
+      { path: 'records', component: RecordsPageComponent }
     ]
   }
 ];
