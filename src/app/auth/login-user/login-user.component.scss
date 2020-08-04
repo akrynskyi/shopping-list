@@ -1,0 +1,16 @@
+@import '../../../styles/mixins/auth-form.mixin.scss';
+
+.form {
+  @include auth-form;
+
+  &__redirect {
+    margin-top: 35px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+
+    & > span {
+      margin-right: 5px;
+    }
+  }
+}

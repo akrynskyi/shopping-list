@@ -1,9 +1,16 @@
-<div class="overlay">
-  <div class="snackbar" [class.active]="message">
+<div class="overlay" [class.active]="overlay">
+  <div class="snackbar" [class.active]="snackbar">
     <div class="snackbar__body">
       {{ message }}
     </div>
     <div class="snackbar__action">
+      <button
+        class="btn b-icon small confirm-btn"
+        *ngIf="confirmAction"
+        (click)="confirm()"
+      >
+        OK
+      </button>
       <button
         class="btn b-icon small"
         (click)="close()"

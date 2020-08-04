@@ -4,7 +4,7 @@
       <li>
         <a
           class="nav__link"
-          routerLink=""
+          routerLink="/home"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{exact: true}"
         >
@@ -17,7 +17,7 @@
       <li>
         <a
           class="nav__link"
-          routerLink="/add"
+          [routerLink]="['../home', 'create']"
           routerLinkActive="active"
         >
           <i class="fas fa-pencil-alt"></i>
@@ -29,7 +29,7 @@
       <li>
         <a
           class="nav__link"
-          routerLink="/list"
+          [routerLink]="['../home', 'records']"
           routerLinkActive="active"
         >
           <i class="fas fa-file-alt"></i>
@@ -41,7 +41,7 @@
     </ul>
 
     <ul class="auth">
-      <li *ngIf="!authService.isLogin">
+      <li>
         <button
           class="btn btn-invert auth__btn"
           (click)="onLogin()"
@@ -49,7 +49,7 @@
           Login
         </button>
       </li>
-      <li *ngIf="authService.isLogin">
+      <li>
         <button
           class="btn auth__btn"
           (click)="onLogout()"

@@ -1,0 +1,6 @@
+<main class="container content">
+  <router-outlet></router-outlet>
+  <app-fullscreen-loader
+    *ngIf="ns.loading | async"
+  ></app-fullscreen-loader>
+</main>

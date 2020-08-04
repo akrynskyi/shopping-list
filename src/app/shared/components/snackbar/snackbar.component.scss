@@ -1,15 +1,18 @@
+@import '../../../../styles/mixins/overlay.mixin.scss';
+
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 20;
+  @include overlay;
+
   padding: 80px 0px;
-  display: flex;
-  justify-content: center;
   align-items: flex-end;
-  pointer-events: none;
+  background: transparent;
+  transition: background .2s cubic-bezier(0,0,.2,1);
+
+  &.active {
+    pointer-events: all;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(2px);
+  }
 }
 
 .snackbar {
@@ -37,6 +40,18 @@
 
   &__body {
     font-size: 16px;
+    line-height: 1.5;
+    margin-right: 25px;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+
+    & > .confirm-btn {
+      margin-right: 10px;
+      color: var(--def);
+    }
   }
 
   &.active {

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -7,9 +12,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterUserComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private titleService: Title,
+    private auth: AuthService,
+    private ns: NotificationService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Create an account | Shopping List');
+    this.form = this.initForm();
   }
 
+  initForm(): FormGroup {
+    return this.fb.group(
+      {
+        username: [
+          null,
+          Validators.required
+        ],
+        email: [
+          null,
+          { validators: [Validators.required, Validators.email] }
+        ],
+        password: [
+          null,
+          { validators: [Validators.required, Validators.minLength(6)] }
+        ],
+        confirmPassword: [
+          null,
+          Validators.required
+        ]
+      },
+      { validator: this.passwordMatchValidator.bind(this) }
+    );
+  }
+
+  passwordMatchValidator(formGroup: FormGroup) {
+    const { password, confirmPassword } = formGroup.value;
+    if (password !== confirmPassword) {
+      formGroup.get('confirmPassword').setErrors({'isMatch': { message: 'Passwords don\'t match' }});
+    }
+  }
+
+  onSubmit() {
+    const { username, email, password } = this.form.value;
+
+    if (this.form.invalid) return;
+    this.ns.loading.next(true);
+
+    this.auth.register({username, email, password})
+      .subscribe(
+        user => {
+          console.log(user)
+
+          this.router.navigate(['home'], {queryParams: {message: 'login'}});
+          this.ns.loading.next(false);
+          this.form.reset();
+        },
+        () => this.ns.loading.next(false)
+      );
+  }
 }

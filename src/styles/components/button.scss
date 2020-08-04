@@ -1,13 +1,19 @@
+@import '../mixins/cleanup-btn.mixin.scss';
+
 .btn {
   position: relative;
   font-family: inherit;
-  font-weight: 400;
+  font-weight: 500;
   padding: 10px 20px;
   background-color: var(--accent-main);
-  color: var(--neutral-placeholder);
+  color: var(--base);
   border-radius: 4px;
   cursor: pointer;
   overflow: hidden;
+
+  &:not(.b-icon) {
+    min-height: 40px;
+  }
 
   &::before {
     content: "";
@@ -33,6 +39,11 @@
     opacity: 0.75;
   }
 
+  &.success {
+    background-color: #3ac05b;
+    color: var(--def);
+  }
+
   &.b-icon {
     display: flex;
     align-items: center;
@@ -50,8 +61,8 @@
 
     &.small {
       padding: 0;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
 
       &:hover {
         background: var(--neutral-primary);
@@ -101,16 +112,5 @@
 }
 
 .btn-clean {
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 400;
-  color: var(--neutral-regular);
-  border: 1px solid transparent;
-  background: transparent;
-  transition: color .2s linear;
-  padding: 8px 20px;
-
-  &:hover {
-    color: var(--neutral-primary);
-  }
+  @include cleanup-btn;
 }

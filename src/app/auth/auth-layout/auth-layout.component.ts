@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-auth-layout',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(public ns: NotificationService) { }
 
   ngOnInit(): void {
   }

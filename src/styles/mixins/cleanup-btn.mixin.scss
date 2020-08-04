@@ -1,0 +1,12 @@
+@mixin cleanup-btn {
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--neutral-regular);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: color .2s linear;
+
+  &:hover {
+    color: var(--neutral-primary);
+  }
+}

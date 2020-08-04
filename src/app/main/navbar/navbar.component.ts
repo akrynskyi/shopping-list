@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void { }
 
   onLogin() {
-    this.authService.login(true);
+    // this.authService.login(true);
     this.router.navigate(
       [],
       {
@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.login(false);
+    // this.authService.login(false);
     this.router.navigate(
       [],
       { relativeTo: this.route,
