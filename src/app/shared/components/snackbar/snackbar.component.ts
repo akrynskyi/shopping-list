@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
-import messages from '../../utils/messages';
+import messages from './snackbar.messages';
 
 @Component({
   selector: 'app-snackbar',
@@ -26,20 +26,15 @@ export class SnackbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(query => {
-        clearTimeout(this.timeoutHandle);
-
         if (messages[query.message]) {
-          this.confirmAction = false;
           this.onMessage(messages[query.message]);
         }
-
-        this.timeoutHandle = setTimeout(this.reset.bind(this), 5000);
       });
 
     this.sub = this.ns.message
-      .subscribe(key => {
-        if (messages[key]) {
-          this.onMessage(messages[key], 'confirm');
+      .subscribe(msg => {
+        if (messages[msg.code]) {
+          this.onMessage(messages[msg.code], msg.type);
         }
       });
   }
@@ -49,6 +44,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
   }
 
   onMessage(msg: string, type?: string) {
+    clearTimeout(this.timeoutHandle);
     this.message = null;
     this.message = msg;
     this.snackbar = true;
@@ -56,6 +52,9 @@ export class SnackbarComponent implements OnInit, OnDestroy {
     if (type === 'confirm') {
       this.confirmAction = true;
       this.overlay = true;
+    } else {
+      this.confirmAction = false;
+      this.timeoutHandle = setTimeout(this.reset.bind(this), 5000);
     }
   }
 

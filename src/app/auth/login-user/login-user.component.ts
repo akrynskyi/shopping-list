@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AuthService, UserCred } from 'src/app/shared/services/auth.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
@@ -17,16 +18,18 @@ export class LoginUserComponent implements OnInit {
     private fb: FormBuilder,
     private titleService: Title,
     private auth: AuthService,
-    private ns: NotificationService
+    private ns: NotificationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Sign in | Shopping List');
-    this.initForm();
+    this.form = this.initForm();
+    console.log(this.auth.token);
   }
 
   initForm() {
-    this.form = this.fb.group({
+    return this.fb.group({
       email: [null, {validators: [Validators.required, Validators.email]}],
       password: [null, {validators: [Validators.required, Validators.minLength(6)]}]
     });
@@ -39,10 +42,15 @@ export class LoginUserComponent implements OnInit {
     this.ns.loading.next(true);
 
     this.auth.login(credentials)
-      .subscribe(user => {
-        this.ns.loading.next(false);
-        console.log(user);
-        this.form.reset();
-      });
+      .subscribe(
+        user => {
+          console.log(user);
+
+          this.router.navigate(['home'], {queryParams: {message: 'login'}});
+          this.ns.loading.next(false);
+          this.form.reset();
+        },
+        () => this.ns.loading.next(false)
+      );
   }
 }

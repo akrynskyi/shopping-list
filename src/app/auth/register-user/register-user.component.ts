@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -17,7 +18,8 @@ export class RegisterUserComponent implements OnInit {
     private fb: FormBuilder,
     private titleService: Title,
     private auth: AuthService,
-    private ns: NotificationService
+    private ns: NotificationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,10 +65,15 @@ export class RegisterUserComponent implements OnInit {
     this.ns.loading.next(true);
 
     this.auth.register({username, email, password})
-      .subscribe(user => {
-        this.ns.loading.next(false);
-        console.log(user)
-        this.form.reset();
-      });
+      .subscribe(
+        user => {
+          console.log(user)
+
+          this.router.navigate(['home'], {queryParams: {message: 'login'}});
+          this.ns.loading.next(false);
+          this.form.reset();
+        },
+        () => this.ns.loading.next(false)
+      );
   }
 }
