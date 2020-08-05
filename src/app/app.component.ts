@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingService } from './shared/services/shopping.service';
+import { AuthService } from './shared/services/auth.service';
+import { Store } from '@ngrx/store';
+import { UserState } from './state/user/user.reducer';
+import { SetUser, LoadUser } from './state/user/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,15 @@ import { ShoppingService } from './shared/services/shopping.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+    private store: Store<UserState>
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.auth.userId) {
+      this.store.dispatch(new LoadUser(this.auth.userId));
+    }
+  }
 
 }

@@ -1,36 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { tap, switchMap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import * as moment from 'moment';
+
 import { NotificationService } from './notification.service';
-
-export interface UserCred {
-  username?: string,
-  email: string,
-  password: string
-}
-
-export interface User {
-  username: string,
-  email: string,
-}
-
-export interface RegisterCred {
-  email: string,
-  password: string,
-  returnSecureToken: boolean
-}
-
-export interface AuthResponse {
-  idToken: string,
-  email: string,
-  refreshToken: string,
-  expiresIn: string,
-  localId: string,
-  registered?: boolean
-}
+import { environment } from 'src/environments/environment';
+import { User } from 'src/app/state/user/user.model';
+import * as moment from 'moment';
+import * as auth from '../models/auth.models';
 
 @Injectable({
   providedIn: 'root'
@@ -41,12 +19,13 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private ns: NotificationService
+    private ns: NotificationService,
+    private router: Router
   ) { }
 
   get token(): string {
-    if (!localStorage.getItem(this.AUTH_TOKEN)) return null;
-    const { token, expDate } = JSON.parse(localStorage.getItem(this.AUTH_TOKEN));
+    const { token, expDate } = parse(this.AUTH_TOKEN) as auth.AuthToken;
+    if (!token) return null;
 
     if (new Date().getTime() > new Date(expDate).getTime()) {
       this.logout();
@@ -56,9 +35,15 @@ export class AuthService {
     return token;
   }
 
-  setToken(resp: AuthResponse) {
+  get userId(): string {
+    const { userId } = parse(this.AUTH_TOKEN) as auth.AuthToken;
+    if (!userId) return null;
+    return userId;
+  }
+
+  setToken(resp: auth.AuthResponse) {
     const expDate = moment().seconds(+resp.expiresIn).toDate().toString();
-    const token = { token: resp.idToken, expDate };
+    const token = { token: resp.idToken, expDate, userId: resp.localId };
 
     localStorage.setItem(this.AUTH_TOKEN, JSON.stringify(token));
   }
@@ -69,13 +54,13 @@ export class AuthService {
     return throwError(error);
   }
 
-  register(credentials: UserCred): Observable<User> {
+  register(credentials: auth.UserCred): Observable<User> {
     const { username, email, password} = credentials;
-    const regBody: RegisterCred = { email, password, returnSecureToken: true };
+    const regBody: auth.RegisterCred = { email, password, returnSecureToken: true };
     const userDbRecord = { username, email };
 
     return this.http
-      .post<AuthResponse>(`${environment.signUpEndpoint}${environment.apiKey}`, regBody)
+      .post<auth.AuthResponse>(`${environment.signUpEndpoint}${environment.apiKey}`, regBody)
       .pipe(
         tap(this.setToken.bind(this)),
         switchMap(resp => this.http.put<User>(`${environment.dbEndpoint}/users/${resp.localId}.json`, userDbRecord)),
@@ -83,18 +68,29 @@ export class AuthService {
       );
   }
 
-  login(credentials: UserCred): Observable<User> {
+  login(credentials: auth.UserCred): Observable<User> {
     return this.http
-      .post<AuthResponse>(`${environment.signInEndpoint}${environment.apiKey}`, {...credentials, returnSecureToken: true})
+      .post<auth.AuthResponse>(`${environment.signInEndpoint}${environment.apiKey}`, {...credentials, returnSecureToken: true})
       .pipe(
         tap(this.setToken.bind(this)),
-        switchMap(resp => this.http.get<User>(`${environment.dbEndpoint}/users/${resp.localId}.json`)),
+        switchMap(resp => this.loadUser(resp.localId)),
         catchError(this.errorsHandler.bind(this))
       )
   }
 
-  logout() {
-    localStorage.removeItem(this.AUTH_TOKEN);
+  loadUser(userId: string): Observable<User> {
+    return this.http
+      .get<User>(`${environment.dbEndpoint}/users/${userId}.json`)
+      .pipe(catchError(this.errorsHandler.bind(this)));
   }
 
+  logout() {
+    localStorage.removeItem(this.AUTH_TOKEN);
+    this.router.navigate([''], {queryParams: {message: 'logout' }});
+  }
+
+}
+
+function parse(key: string): Object {
+  return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : {};
 }

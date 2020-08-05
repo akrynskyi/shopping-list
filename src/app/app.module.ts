@@ -11,6 +11,7 @@ import { SnackbarComponent } from './shared/components/snackbar/snackbar.compone
 import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { FullscreenLoaderComponent } from './shared/components/fullscreen-loader/fullscreen-loader.component';
+import { StateModule } from './state/state.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FullscreenLoaderComponent } from './shared/components/fullscreen-loader
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    StateModule
   ],
   providers: [
     Title,

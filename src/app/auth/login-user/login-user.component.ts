@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { AuthService, UserCred } from 'src/app/shared/services/auth.service';
+import { UserCred } from 'src/app/shared/models/auth.models';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Store } from '@ngrx/store';
+import { UserState } from 'src/app/state/user/user.reducer';
+import { SetUser } from 'src/app/state/user/user.actions';
 
 @Component({
   selector: 'app-login-user',
@@ -19,13 +23,15 @@ export class LoginUserComponent implements OnInit {
     private titleService: Title,
     private auth: AuthService,
     private ns: NotificationService,
-    private router: Router
+    private router: Router,
+    private store: Store<UserState>
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Sign in | Shopping List');
     this.form = this.initForm();
     console.log(this.auth.token);
+    console.log(this.auth.userId);
   }
 
   initForm() {
@@ -44,9 +50,8 @@ export class LoginUserComponent implements OnInit {
     this.auth.login(credentials)
       .subscribe(
         user => {
-          console.log(user);
-
           this.router.navigate(['home'], {queryParams: {message: 'login'}});
+          this.store.dispatch(new SetUser(user));
           this.ns.loading.next(false);
           this.form.reset();
         },
