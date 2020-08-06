@@ -1,62 +1,56 @@
 <div class="navbar">
   <div class="navbar__wrapper">
-    <ul class="nav">
-      <li>
-        <a
-          class="nav__link"
-          routerLink="/home"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-        >
-          <i class="fas fa-home"></i>
-          <span class="tooltip">
-            Home
-          </span>
-        </a>
-      </li>
-      <li>
-        <a
-          class="nav__link"
-          [routerLink]="['../home', 'create']"
-          routerLinkActive="active"
-        >
-          <i class="fas fa-pencil-alt"></i>
-          <span class="tooltip">
-            Add item
-          </span>
-        </a>
-      </li>
-      <li>
-        <a
-          class="nav__link"
-          [routerLink]="['../home', 'records']"
-          routerLinkActive="active"
-        >
-          <i class="fas fa-file-alt"></i>
-          <span class="tooltip">
-            Open list
-          </span>
-        </a>
-      </li>
-    </ul>
+    <div class="left-side">
+      <input type="text" value="list name">
+    </div>
 
-    <ul class="auth">
-      <li>
-        <button
-          class="btn btn-invert auth__btn"
-          (click)="onLogin()"
-        >
-          Login
-        </button>
-      </li>
-      <li>
-        <button
-          class="btn auth__btn"
-          (click)="onLogout()"
-        >
-          Logout
-        </button>
-      </li>
-    </ul>
+    <div class="right-side">
+      <ul class="nav">
+        <li>
+          <a
+            class="nav__link"
+            routerLink="/home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <i class="fas fa-home"></i>
+            <span class="tooltip">
+              Home
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [routerLink]="['../home', 'create']"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            <span class="tooltip">
+              Add item
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [routerLink]="['../home', 'records']"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-file-alt"></i>
+            <span class="tooltip">
+              Open list
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="user-menu">
+        <div class="user-menu__button">
+          <i class="fas fa-user-alt"></i>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

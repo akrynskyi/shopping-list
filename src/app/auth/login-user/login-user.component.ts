@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UserCred } from 'src/app/shared/models/auth.models';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
 import { Store } from '@ngrx/store';
 import { UserState } from 'src/app/state/user/user.reducer';
-import { SetUser } from 'src/app/state/user/user.actions';
+import { LoginUser } from 'src/app/state/user/user.actions';
 
 @Component({
   selector: 'app-login-user',
@@ -22,8 +20,6 @@ export class LoginUserComponent implements OnInit {
     private fb: FormBuilder,
     private titleService: Title,
     private auth: AuthService,
-    private ns: NotificationService,
-    private router: Router,
     private store: Store<UserState>
   ) { }
 
@@ -45,17 +41,8 @@ export class LoginUserComponent implements OnInit {
     const credentials = this.form.value as UserCred;
 
     if (this.form.invalid) return;
-    this.ns.loading.next(true);
 
-    this.auth.login(credentials)
-      .subscribe(
-        user => {
-          this.router.navigate(['home'], {queryParams: {message: 'login'}});
-          this.store.dispatch(new SetUser(user));
-          this.ns.loading.next(false);
-          this.form.reset();
-        },
-        () => this.ns.loading.next(false)
-      );
+    this.store.dispatch(new LoginUser(credentials));
+    this.form.reset();
   }
 }

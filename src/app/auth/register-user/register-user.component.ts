@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UserState } from 'src/app/state/user/user.reducer';
+import { RegisterUser } from 'src/app/state/user/user.actions';
 
 @Component({
   selector: 'app-register-user',
@@ -17,9 +17,7 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private titleService: Title,
-    private auth: AuthService,
-    private ns: NotificationService,
-    private router: Router
+    private store: Store<UserState>
   ) { }
 
   ngOnInit(): void {
@@ -62,18 +60,8 @@ export class RegisterUserComponent implements OnInit {
     const { username, email, password } = this.form.value;
 
     if (this.form.invalid) return;
-    this.ns.loading.next(true);
 
-    this.auth.register({username, email, password})
-      .subscribe(
-        user => {
-          console.log(user)
-
-          this.router.navigate(['home'], {queryParams: {message: 'login'}});
-          this.ns.loading.next(false);
-          this.form.reset();
-        },
-        () => this.ns.loading.next(false)
-      );
+    this.store.dispatch(new RegisterUser({username, email, password}));
+    this.form.reset();
   }
 }

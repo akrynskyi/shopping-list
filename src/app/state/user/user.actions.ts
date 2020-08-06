@@ -3,10 +3,16 @@ import { User } from './user.model';
 import { UserCred } from 'src/app/shared/models/auth.models';
 
 export enum UserActionTypes {
+  registerUser = '[User] Register',
   loginUser = '[User] Login in',
   loadUser = '[User] Loaded',
   setUser = '[User] Setted',
   removeUser = '[User] Removed'
+}
+
+export class RegisterUser implements Action {
+  readonly type = UserActionTypes.registerUser;
+  constructor(public payload: UserCred) { }
 }
 
 export class LoginUser implements Action {
@@ -29,4 +35,4 @@ export class RemoveUser implements Action {
   constructor() { }
 }
 
-export type UserActions = LoginUser | LoadUser | SetUser | RemoveUser;
+export type UserActions = RegisterUser | LoginUser | LoadUser | SetUser | RemoveUser;

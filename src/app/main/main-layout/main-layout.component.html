@@ -1,11 +1,20 @@
-<header>
-  <app-navbar></app-navbar>
-</header>
+<div class="wrapper">
+  <header>
+    <app-navbar></app-navbar>
+  </header>
 
-<main class="container content">
-  <router-outlet></router-outlet>
-</main>
+  <main class="container content">
+    <router-outlet></router-outlet>
+  </main>
 
-<footer>
-  <p>footer</p>
-</footer>
+  <footer>
+    <p>
+      <span>Shopping List</span>
+      <a
+        href="#"
+        *ngIf="user$ | async as user"
+      >@{{ user.username }}</a>
+    </p>
+  </footer>
+</div>
+

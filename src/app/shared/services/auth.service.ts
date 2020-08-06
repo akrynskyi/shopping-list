@@ -4,6 +4,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, switchMap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
+import { Store } from '@ngrx/store';
+import { SetUser } from 'src/app/state/user/user.actions';
 import { NotificationService } from './notification.service';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/state/user/user.model';
@@ -20,11 +22,12 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private ns: NotificationService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) { }
 
   get token(): string {
-    const { token, expDate } = parse(this.AUTH_TOKEN) as auth.AuthToken;
+    const { token, expDate } = parse<auth.AuthToken>(this.AUTH_TOKEN);
     if (!token) return null;
 
     if (new Date().getTime() > new Date(expDate).getTime()) {
@@ -36,7 +39,7 @@ export class AuthService {
   }
 
   get userId(): string {
-    const { userId } = parse(this.AUTH_TOKEN) as auth.AuthToken;
+    const { userId } = parse<auth.AuthToken>(this.AUTH_TOKEN);
     if (!userId) return null;
     return userId;
   }
@@ -51,6 +54,7 @@ export class AuthService {
   errorsHandler(error: HttpErrorResponse) {
     const code = error.error.error.message;
     this.ns.message.next({type: 'default', code});
+    this.store.dispatch(new SetUser(null));
     return throwError(error);
   }
 
@@ -91,6 +95,6 @@ export class AuthService {
 
 }
 
-function parse(key: string): Object {
+function parse<T extends Object>(key: string): T {
   return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : {};
 }
