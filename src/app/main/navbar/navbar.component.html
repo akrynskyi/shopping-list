@@ -1,10 +1,21 @@
 <div class="navbar">
   <div class="navbar__wrapper">
-    <div class="left-side">
-      <input type="text" value="list name">
+
+    <div class="navbar__title">
+      <input
+        type="text"
+        class="title-input"
+        [(ngModel)]="listName"
+        [style.width.px]="calcWidth(titleMask)"
+      >
+      <span
+        class="title-mask"
+        #titleMask
+      >{{ listName }}</span>
+      <i class="fas fa-pen"></i>
     </div>
 
-    <div class="right-side">
+    <div class="navbar__menu">
       <ul class="nav">
         <li>
           <a
@@ -44,11 +55,28 @@
           </a>
         </li>
       </ul>
-
       <div class="user-menu">
-        <div class="user-menu__button">
+        <div
+          class="user-menu__button"
+          (click)="dropdown = true"
+        >
           <i class="fas fa-user-alt"></i>
         </div>
+        <ul
+          class="user-menu__dropdown"
+          *ngIf="dropdown"
+        >
+          <li>
+            <i
+              class="fas fa-times"
+              (click)="dropdown = false"
+            ></i>
+          </li>
+          <li>Profile</li>
+          <li
+            (click)="auth.logout()"
+          >Log out</li>
+        </ul>
       </div>
     </div>
 

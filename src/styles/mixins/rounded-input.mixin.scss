@@ -1,0 +1,8 @@
+@mixin rounded-input {
+  background-color: transparent;
+  border-radius: 50px;
+
+  &:focus {
+    background-color: var(--lightex);
+  }
+}

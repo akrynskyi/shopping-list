@@ -37,11 +37,8 @@ footer {
     font-size: 14px;
     z-index: 2;
 
-    & > span {
-      margin-right: 8px;
-    }
-
     & > a {
+      margin-left: 8px;
       color: var(--neutral-regular);
     }
   }
