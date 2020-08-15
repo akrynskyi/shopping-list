@@ -18,10 +18,16 @@ body {
 }
 
 .headline {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  color: var(--neutral-regular);
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+
+  & > p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--neutral-regular);
+    margin-top: 10px;
+  }
 }
 
 .heading {

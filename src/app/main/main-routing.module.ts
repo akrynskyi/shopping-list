@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { CreateRecordPageComponent } from './create-record-page/create-record-page.component';
 import { RecordsPageComponent } from './records-page/records-page.component';
+import { RecordDetailsComponent } from './records-page/record-details/record-details.component';
 
 // const routes: Routes = [
 //     path: 'home',
@@ -51,7 +52,8 @@ const routes: Routes = [
     children: [
       { path: '', component: OverviewPageComponent },
       { path: 'create', component: CreateRecordPageComponent },
-      { path: 'records', component: RecordsPageComponent }
+      { path: 'records', component: RecordsPageComponent },
+      { path: 'details/:name/:id', component: RecordDetailsComponent }
     ]
   }
 ];

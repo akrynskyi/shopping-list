@@ -1,6 +1,8 @@
 @import '../../../styles/mixins/rounded-input.mixin.scss';
 
 .history {
+  margin-bottom: 80px;
+
   &__item {
     display: flex;
     justify-content: space-between;
@@ -8,7 +10,11 @@
     padding: 20px 40px;
     background-color: var(--def);
     border: 1px solid var(--base);
-    border-radius: 50px;
+    border-radius: 8px;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
   }
 }
 
@@ -32,4 +38,9 @@
 
   width: 100%;
   padding: 10px 15px 10px 35px;
+}
+
+.btn-center {
+  display: flex;
+  justify-content: center;
 }

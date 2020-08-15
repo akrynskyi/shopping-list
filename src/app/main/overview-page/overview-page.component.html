@@ -1,4 +1,7 @@
-<h1 class="headline">Get Started</h1>
+<div class="headline">
+  <h1>Get Started</h1>
+  <p>Create new list or select one</p>
+</div>
 
 <ul class="history">
   <li class="history__item">
@@ -19,4 +22,28 @@
       <i class="fas fa-plus"></i>
     </button>
   </li>
+  <li class="history__item">
+    <div class="input-group">
+      <i class="fas fa-file"></i>
+      <input
+        class="name-input"
+        type="text"
+        [(ngModel)]="shoppingService.listName"
+      >
+    </div>
+
+    <button
+      class="btn b-icon"
+      title="Add new item"
+      (click)="toAddPage()"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </li>
 </ul>
+
+<div class="btn-center">
+  <button class="btn b-icon large">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
