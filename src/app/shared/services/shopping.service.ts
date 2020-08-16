@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NotificationService } from './notification.service';
-
-export interface Purchase {
-  id: number,
-  name: string,
-  quantity: string,
-  option: string,
-  copy?: boolean,
-  editDate?: Date
-}
+import { Purchase } from '../models/purchase.model';
 
 @Injectable({
   providedIn: 'root'

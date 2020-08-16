@@ -5,10 +5,11 @@ import { tap, switchMap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
 import { Store } from '@ngrx/store';
+import { User } from 'src/app/state/user/user.model';
 import { SetUser } from 'src/app/state/user/user.actions';
+import { LoadRecords } from 'src/app/state/records/records.actions';
 import { NotificationService } from './notification.service';
 import { environment } from 'src/environments/environment';
-import { User } from 'src/app/state/user/user.model';
 import * as moment from 'moment';
 import * as auth from '../models/auth.models';
 
@@ -76,7 +77,10 @@ export class AuthService {
     return this.http
       .post<auth.AuthResponse>(`${environment.signInEndpoint}${environment.apiKey}`, {...credentials, returnSecureToken: true})
       .pipe(
-        tap(this.setToken.bind(this)),
+        tap((resp) => {
+          this.setToken(resp);
+          this.store.dispatch(new LoadRecords(resp.localId));
+        }),
         switchMap(resp => this.loadUser(resp.localId)),
         catchError(this.errorsHandler.bind(this))
       )

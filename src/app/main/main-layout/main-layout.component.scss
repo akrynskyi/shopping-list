@@ -19,26 +19,15 @@ footer {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 35px 0px;
+  padding: 25px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    background-color: var(--neutral-placeholder);
-    z-index: 1;
-  }
-
-  & > p {
-    padding: 0px 20px;
+  & > div {
     background-color: var(--lighter);
-    font-size: 14px;
+    font-size: 16px;
     z-index: 2;
 
     & > a {
-      margin-left: 8px;
+      font-size: 14px;
       color: var(--neutral-regular);
     }
   }

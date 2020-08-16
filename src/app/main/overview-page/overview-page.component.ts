@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingService } from '../../shared/services/shopping.service';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Record } from 'src/app/state/records/records.model';
+import { RecordsState } from 'src/app/state/records/records.reducer';
+import { selectAllRecords } from 'src/app/state';
+import { CreateRecord } from 'src/app/state/records/records.actions';
 
 @Component({
   selector: 'app-overview-page',
@@ -10,17 +14,35 @@ import { Router } from '@angular/router';
 })
 export class OverviewPageComponent implements OnInit {
 
+  records$: Observable<Record[]>
+  recordName: string = null;
+  createPopup = false;
+
   constructor(
-    public shoppingService: ShoppingService,
     private titleService: Title,
-    private router: Router
+    private store: Store<RecordsState>
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Get started | Shopping List');
+    this.records$ = this.store.pipe(select(selectAllRecords));
   }
 
-  toAddPage() {
-    this.router.navigate(['add']);
+  closePopup(e: Event) {
+    if (e.target !== e.currentTarget) return;
+    this.createPopup = false;
   }
+
+  createRecord() {
+    const newRecord: Record = {
+      name: this.recordName,
+      createDate: Date.now(),
+      shoppingList: []
+    }
+
+    this.store.dispatch(new CreateRecord(newRecord));
+    this.recordName = null;
+    this.createPopup = false;
+  }
+
 }

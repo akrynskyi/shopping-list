@@ -8,13 +8,15 @@
   </main>
 
   <footer>
-    <p>
-      <span>Shopping List</span>
+    <div>
+      <p>
+        shoppinglist.app
+      </p>
       <a
         href="#"
         *ngIf="user$ | async as user"
       >@{{ user.username }}</a>
-    </p>
+    </div>
   </footer>
 </div>
 

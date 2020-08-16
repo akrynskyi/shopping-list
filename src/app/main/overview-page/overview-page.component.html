@@ -3,47 +3,47 @@
   <p>Create new list or select one</p>
 </div>
 
-<ul class="history">
-  <li class="history__item">
-    <div class="input-group">
+<ul class="records">
+  <li
+    class="records__item"
+    *ngFor="let record of records$ | async"
+  >
+    <div class="records__group">
       <i class="fas fa-file"></i>
-      <input
-        class="name-input"
-        type="text"
-        [(ngModel)]="shoppingService.listName"
-      >
+      <span>{{ record.name | titlecase }}</span>
     </div>
-
-    <button
-      class="btn b-icon"
-      title="Add new item"
-      (click)="toAddPage()"
-    >
-      <i class="fas fa-plus"></i>
-    </button>
-  </li>
-  <li class="history__item">
-    <div class="input-group">
-      <i class="fas fa-file"></i>
-      <input
-        class="name-input"
-        type="text"
-        [(ngModel)]="shoppingService.listName"
-      >
-    </div>
-
-    <button
-      class="btn b-icon"
-      title="Add new item"
-      (click)="toAddPage()"
-    >
-      <i class="fas fa-plus"></i>
-    </button>
+    <p>Created: {{ record.createDate | fromNow }}</p>
   </li>
 </ul>
 
-<div class="btn-center">
-  <button class="btn b-icon large">
+<div class="create-record">
+  <button
+    class="btn b-icon large"
+    (click)="createPopup = true"
+  >
     <i class="fas fa-plus"></i>
   </button>
+  <div
+    class="overlay"
+    (click)="closePopup($event)"
+    *ngIf="createPopup"
+  >
+    <div class="panel">
+      <label>List name</label>
+      <div class="panel__group">
+        <input
+          type="text"
+          class="input-field"
+          [(ngModel)]="recordName"
+          required
+        >
+        <button
+          class="btn"
+          [disabled]="!recordName"
+          [class.success]="recordName"
+          (click)="createRecord()"
+        >Create</button>
+      </div>
+    </div>
+  </div>
 </div>
