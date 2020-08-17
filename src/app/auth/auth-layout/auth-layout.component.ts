@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Store, select } from '@ngrx/store';
+import { UserState } from 'src/app/state/user/user.reducer';
+import { selectUserLoading } from 'src/app/state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth-layout',
@@ -8,9 +12,12 @@ import { NotificationService } from '../../shared/services/notification.service'
 })
 export class AuthLayoutComponent implements OnInit {
 
-  constructor(public ns: NotificationService) { }
+  userLoaded$: Observable<boolean>;
+
+  constructor(private store: Store<UserState>) { }
 
   ngOnInit(): void {
+    this.userLoaded$ = this.store.pipe(select(selectUserLoading));
   }
 
 }

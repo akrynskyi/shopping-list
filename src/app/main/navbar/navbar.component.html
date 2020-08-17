@@ -1,62 +1,84 @@
 <div class="navbar">
   <div class="navbar__wrapper">
-    <ul class="nav">
-      <li>
-        <a
-          class="nav__link"
-          routerLink="/home"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-        >
-          <i class="fas fa-home"></i>
-          <span class="tooltip">
-            Home
-          </span>
-        </a>
-      </li>
-      <li>
-        <a
-          class="nav__link"
-          [routerLink]="['../home', 'create']"
-          routerLinkActive="active"
-        >
-          <i class="fas fa-pencil-alt"></i>
-          <span class="tooltip">
-            Add item
-          </span>
-        </a>
-      </li>
-      <li>
-        <a
-          class="nav__link"
-          [routerLink]="['../home', 'records']"
-          routerLinkActive="active"
-        >
-          <i class="fas fa-file-alt"></i>
-          <span class="tooltip">
-            Open list
-          </span>
-        </a>
-      </li>
-    </ul>
 
-    <ul class="auth">
-      <li>
-        <button
-          class="btn btn-invert auth__btn"
-          (click)="onLogin()"
+    <div class="navbar__title">
+      <input
+        type="text"
+        class="title-input"
+        [(ngModel)]="listName"
+        [style.width.px]="calcWidth(titleMask)"
+      >
+      <span
+        class="title-mask"
+        #titleMask
+      >{{ listName }}</span>
+      <i class="fas fa-pen"></i>
+    </div>
+
+    <div class="navbar__menu">
+      <ul class="nav">
+        <li>
+          <a
+            class="nav__link"
+            routerLink="/home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            <i class="fas fa-home"></i>
+            <span class="tooltip">
+              Home
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [routerLink]="['../home', 'create']"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            <span class="tooltip">
+              Add item
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [routerLink]="['../home', 'records']"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-file-alt"></i>
+            <span class="tooltip">
+              Open list
+            </span>
+          </a>
+        </li>
+      </ul>
+      <div class="user-menu">
+        <div
+          class="user-menu__button"
+          (click)="dropdown = true"
         >
-          Login
-        </button>
-      </li>
-      <li>
-        <button
-          class="btn auth__btn"
-          (click)="onLogout()"
+          <i class="fas fa-user-alt"></i>
+        </div>
+        <ul
+          class="user-menu__dropdown"
+          *ngIf="dropdown"
         >
-          Logout
-        </button>
-      </li>
-    </ul>
+          <li>
+            <i
+              class="fas fa-times"
+              (click)="dropdown = false"
+            ></i>
+          </li>
+          <li>Profile</li>
+          <li
+            (click)="auth.logout()"
+          >Log out</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </div>
