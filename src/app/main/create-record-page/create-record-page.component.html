@@ -1,27 +1,62 @@
-<h1 class="headline">Add item to {{ shoppingService.listName | lowercase }}</h1>
+<div
+  class="panel"
+  *ngIf="selectedRecord$ | async as record"
+>
+  <div class="panel__header">
+    <h1>
+      <i class="fas fa-link"></i>
+      <span>{{ record.name }} | Add new item</span>
+    </h1>
+  </div>
+  <div class="panel__body">
+    <form
+      class="form"
+    >
+      <div class="form__control">
+        <label>Item name</label>
+        <input
+          type="text"
+          class="input-field"
+        >
+        <div class="form__errors"></div>
+      </div>
 
-<form class="form-group" (submit)="create()">
-  <div class="form-control">
-    <input
-      type="text"
-      placeholder="Name"
-      class="input-field"
-      #name
-    >
+      <div class="form__control">
+        <label>Item Units</label>
+        <div class="select">
+          <select
+            class="input-field"
+          >
+            <option value="amount">Amount</option>
+            <option value="weight">Weight</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form__control">
+        <label>Item Quantity</label>
+        <div class="range-slider">
+          <input
+            class="range-slider__range"
+            type="range"
+            value="10"
+            min="0"
+            max="10000"
+            step="1"
+          >
+          <span
+            class="range-slider__value"
+          >10</span>
+        </div>
+      </div>
+
+      <div class="form__action">
+        <button
+          class="btn"
+          type="submit"
+        >Add Item</button>
+      </div>
+
+    </form>
   </div>
-  <div class="form-control">
-    <input
-      type="number"
-      [placeholder]="option | titlecase"
-      class="input-field"
-      #quantity
-    >
-  </div>
-  <div class="form-control right">
-    <select #select (change)="option = select.value">
-      <option value="amount">Amount</option>
-      <option value="weight">Weight</option>
-    </select>
-  </div>
-  <button type="submit" class="btn">Add</button>
-</form>
+</div>

@@ -1,12 +1,12 @@
 <div class="navbar">
   <div class="navbar__wrapper">
-
     <div class="navbar__title">
       <input
         type="text"
         class="title-input"
         [(ngModel)]="listName"
         [style.width.px]="calcWidth(titleMask)"
+        [appBlur]="updateRecord.bind(this)"
       >
       <span
         class="title-mask"
@@ -14,7 +14,6 @@
       >{{ listName }}</span>
       <i class="fas fa-pen"></i>
     </div>
-
     <div class="navbar__menu">
       <ul class="nav">
         <li>
@@ -79,6 +78,5 @@
         </ul>
       </div>
     </div>
-
   </div>
 </div>

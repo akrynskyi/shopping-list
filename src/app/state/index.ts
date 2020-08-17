@@ -39,3 +39,8 @@ export const selectAllRecords = createSelector(
   selectRecordsState,
   fromRecords.getAllRecords
 );
+
+export const selectRecord = createSelector(
+  selectRecordsState,
+  fromRecords.getSelectedRecord
+);

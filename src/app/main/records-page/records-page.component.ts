@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
-import { ShoppingService, Purchase } from '../../shared/services/shopping.service';
+import { Purchase } from 'src/app/shared/models/purchase.model';
 
 @Component({
   selector: 'app-records-page',
@@ -12,15 +12,14 @@ import { ShoppingService, Purchase } from '../../shared/services/shopping.servic
 export class RecordsPageComponent implements OnInit {
 
   constructor(
-    public shoppingService: ShoppingService,
     private titleCasePipe: TitleCasePipe,
     private titleService: Title,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.titleService
-      .setTitle(`${this.titleCasePipe.transform(this.shoppingService.listName)} | Shopping List`);
+    // this.titleService
+    //   .setTitle(`${this.titleCasePipe.transform(this.shoppingService.listName)} | Shopping List`);
   }
 
   toDetail(item: Purchase) {

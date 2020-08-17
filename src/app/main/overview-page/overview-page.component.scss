@@ -20,13 +20,14 @@
       margin-bottom: 15px;
     }
 
-    &:hover {
+    &:hover:not(.selected),
+    &.selected {
       border-color: var(--accent-primary);
       border-left: 8px solid var(--accent-primary);
     }
 
     & > p {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 
@@ -41,13 +42,6 @@
     }
   }
 }
-
-// .name-input {
-//   @include rounded-input;
-
-//   width: 100%;
-//   padding: 10px 15px 10px 35px;
-// }
 
 .create-record {
   display: flex;

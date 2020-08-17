@@ -1,7 +1,7 @@
 import { Record } from "./records.model";
 import { RecordsActions, RecordsActionTypes } from './records.actions';
 
-const initialRecord: Record = {
+export const initialRecord: Record = {
   name: 'New list',
   createDate: Date.now(),
   shoppingList: []
@@ -18,19 +18,33 @@ export const initialState: RecordsState = {
 }
 
 const createRecord = (records: Record[], record: Record) => [...records, record];
+const updateRecord = (records: Record[], record: Record) => records
+  .map(rec => rec.id === record.id ? Object.assign({}, record) : rec);
 
 export function recordsReducer(state = initialState, action: RecordsActions): RecordsState {
   switch (action.type) {
-    case RecordsActionTypes.addRecord:
+    case RecordsActionTypes.recordCreated:
       return {
         records: createRecord(state.records, action.payload),
         selectedRecord: state.selectedRecord
       }
 
-    case RecordsActionTypes.setRecords:
+    case RecordsActionTypes.recordUpdated:
+      return {
+        records: updateRecord(state.records, action.payload),
+        selectedRecord: action.payload
+      }
+
+    case RecordsActionTypes.recordsLoaded:
       return {
         records: action.payload,
-        selectedRecord: state.selectedRecord
+        selectedRecord: action.payload[0]
+      }
+
+    case RecordsActionTypes.selectRecord:
+      return {
+        records: state.records,
+        selectedRecord: action.payload
       }
 
     default:
@@ -43,3 +57,4 @@ export function recordsReducer(state = initialState, action: RecordsActions): Re
 */
 
 export const getAllRecords = (state: RecordsState) => state.records;
+export const getSelectedRecord = (state: RecordsState) => state.selectedRecord;

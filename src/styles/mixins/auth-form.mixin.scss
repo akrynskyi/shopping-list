@@ -1,3 +1,5 @@
+@import './base-form.mixin.scss';
+
 @mixin auth-form {
   min-width: var(--auth-form-width);
   background-color: var(--def);
@@ -5,37 +7,5 @@
   border-radius: 6px;
   padding: 50px 40px;
 
-  &__control {
-    margin-bottom: 25px;
-
-    & > label {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-  }
-
-  &__action {
-    display: flex;
-    flex-direction: column;
-
-    & > button {
-      flex-grow: 1;
-    }
-  }
-
-  &__errors {
-    width: 100%;
-    min-height: 40px;
-    padding: 10px 15px;
-    background-color: var(--lighter);
-    border-radius: 4px;
-    color: var(--accent-main);
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-  }
+ @include base-form;
 }

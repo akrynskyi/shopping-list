@@ -4,8 +4,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Record } from 'src/app/state/records/records.model';
 import { RecordsState } from 'src/app/state/records/records.reducer';
-import { selectAllRecords } from 'src/app/state';
-import { CreateRecord } from 'src/app/state/records/records.actions';
+import { selectAllRecords, selectRecord } from 'src/app/state';
+import { CreateRecord, SelectRecord } from 'src/app/state/records/records.actions';
 
 @Component({
   selector: 'app-overview-page',
@@ -14,7 +14,8 @@ import { CreateRecord } from 'src/app/state/records/records.actions';
 })
 export class OverviewPageComponent implements OnInit {
 
-  records$: Observable<Record[]>
+  records$: Observable<Record[]>;
+  selectedRecord: Record;
   recordName: string = null;
   createPopup = false;
 
@@ -26,11 +27,23 @@ export class OverviewPageComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Get started | Shopping List');
     this.records$ = this.store.pipe(select(selectAllRecords));
+    this.store
+      .pipe(select(selectRecord))
+      .subscribe(rec => this.selectedRecord = rec);
   }
 
   closePopup(e: Event) {
     if (e.target !== e.currentTarget) return;
     this.createPopup = false;
+  }
+
+  addSelectedClass(id: string) {
+    if (!this.selectedRecord) return;
+    return this.selectedRecord.id === id;
+  }
+
+  selectRecord(record: Record) {
+    this.store.dispatch(new SelectRecord(record));
   }
 
   createRecord() {

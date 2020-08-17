@@ -1,41 +1,40 @@
-.form-group {
+@import '../../../styles/mixins/base-form.mixin.scss';
+
+.panel {
   background-color: var(--def);
-  border: 1px solid var(--base);
-  padding: 25px;
-}
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px 0 rgba(60,64,67,.3),
+    0 1px 3px 1px rgba(60,64,67,.15);
 
-.form-control {
-  margin-bottom: 20px;
+  &__header {
+    background-color: var(--lightex);
+    border-bottom: 1px solid var(--base);
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    padding: 35px 40px;
 
-  &.right {
-    display: flex;
-    justify-content: flex-end;
-  }
+    & > h1 {
+      font-weight: 500;
+      color: var(--neutral-regular);
 
-  & > select {
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: border .2s ease-in-out;
-    padding: 5px;
-    border-radius: 4px;
-
-    &:hover,
-    &:focus {
-      border: 1px solid var(--neutral-placeholder);
+      i {
+        margin-right: 10px;
+        font-size: 16px;
+      }
     }
   }
+
+  &__body {
+    min-height: 540px;
+    padding: 40px 80px;
+  }
 }
 
-.input-field {
-  width: 100%;
-  min-height: 40px;
-  padding: 10px 15px;
-  border: 1px solid var(--neutral-placeholder);
-  border-radius: 4px;
-  transition: all .2s ease-in-out;
+.form {
+  @include base-form;
 
-  &:focus {
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 2px solid rgba(81, 203, 238, 1);
+  &__control {
+    margin-bottom: 35px;
   }
 }

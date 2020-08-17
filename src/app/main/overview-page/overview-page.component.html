@@ -7,12 +7,19 @@
   <li
     class="records__item"
     *ngFor="let record of records$ | async"
+    (click)="selectRecord(record)"
+    [class.selected]="addSelectedClass(record.id)"
   >
     <div class="records__group">
       <i class="fas fa-file"></i>
       <span>{{ record.name | titlecase }}</span>
     </div>
-    <p>Created: {{ record.createDate | fromNow }}</p>
+    <p
+      *ngIf="!record.updateDate"
+    >Created: {{ record.createDate | fromNow }}</p>
+    <p
+      *ngIf="record.updateDate"
+    >Updated: {{ record.updateDate | fromNow }}</p>
   </li>
 </ul>
 
@@ -41,6 +48,7 @@
           class="btn"
           [disabled]="!recordName"
           [class.success]="recordName"
+          (keydown.enter)="createRecord()"
           (click)="createRecord()"
         >Create</button>
       </div>

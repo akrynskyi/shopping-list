@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Purchase } from './shopping.service';
 import { Subject, Observable } from 'rxjs';
+import { Purchase } from '../models/purchase.model';
 
 export interface NotifMessage {
   type: 'default' | 'confirm',
