@@ -3,16 +3,6 @@
     padding: 25px;
     background-color: var(--def);
     border: 1px solid var(--base);
-    cursor: pointer;
-    transition: all .2s linear;
-
-    &:hover {
-      transform: scale(1.02);
-      box-shadow:
-        0 2px 2px 0 rgba(0,0,0,0.14),
-        0 3px 1px -2px rgba(0,0,0,0.12),
-        0 1px 5px 0 rgba(0,0,0,0.2);
-    }
 
     &:not(:first-child) {
       margin-top: 20px;
@@ -44,7 +34,8 @@
   margin-right: 10px;
 }
 
-.name {
+.name,
+.edit {
   display: flex;
   align-items: center;
 
@@ -56,10 +47,22 @@
     padding: 10px 0px;
     margin-right: 5px;
   }
+}
 
-  & > span.num {
-    font-weight: 300;
+.edit {
+  position: relative;
+
+  &-input {
+    width: 100%;
+    padding: 10px 30px 10px 15px;
+    background-color: var(--lightex);
+    border-radius: 50px;
   }
+}
+
+.save-btn {
+  position: absolute;
+  right: 2px;
 }
 
 .amount {
@@ -92,8 +95,8 @@
   &__popover {
     position: absolute;
     display: inline-block;
-    background-color: var(--base);
-    color: var(--neutral-main);
+    background-color: var(--neutral-main);
+    color: var(--def);
     font-size: 12px;
     text-align: center;
     text-transform: capitalize;
@@ -111,7 +114,7 @@
       content: "";
       position: absolute;
       border: 5px solid transparent;
-      border-top-color: var(--base);
+      border-top-color: var(--neutral-main);
       top: 100%;
       left: 50%;
       transform: translateX(-50%);
@@ -121,5 +124,19 @@
       opacity: 1;
       transform: translate(-50%, -100%);
     }
+  }
+}
+
+.breadcrumbs {
+  margin-bottom: 40px;
+  display: flex;
+
+  &__slash {
+    margin: 0 8px;
+  }
+
+  &__link.active {
+    color: var(--neutral-main);
+    pointer-events: none;
   }
 }

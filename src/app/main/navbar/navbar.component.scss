@@ -106,7 +106,8 @@
   border-top-right-radius: unset;
   border-bottom-right-radius: unset;
 
-  &:focus ~ i {
+  &:focus ~ i,
+  &:hover ~ i {
     background-color: var(--lightex);
   }
 }

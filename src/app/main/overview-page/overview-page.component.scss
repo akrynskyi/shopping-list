@@ -1,6 +1,9 @@
 @import '../../../styles/mixins/rounded-input.mixin.scss';
+@import '../../../styles/mixins/overlay.mixin.scss';
 
-.history {
+.records {
+  margin-bottom: 80px;
+
   &__item {
     display: flex;
     justify-content: space-between;
@@ -8,28 +11,82 @@
     padding: 20px 40px;
     background-color: var(--def);
     border: 1px solid var(--base);
-    border-radius: 50px;
+    border-left-width: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .1s linear;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    &:hover {
+      border-color: var(--accent-primary);
+      border-left: 8px solid var(--accent-primary);
+    }
+
+    & > p {
+      font-size: 14px;
+    }
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+
+    & > i {
+      font-size: 14px;
+      color: var(--neutral-regular);
+      margin-right: 10px;
+    }
   }
 }
 
-.input-group {
-  position: relative;
-  width: 100%;
+// .name-input {
+//   @include rounded-input;
+
+//   width: 100%;
+//   padding: 10px 15px 10px 35px;
+// }
+
+.create-record {
   display: flex;
-  align-items: center;
-  margin-right: 20px;
+  justify-content: center;
 
-  & > i {
-    position: absolute;
-    left: 15px;
-    font-size: 12px;
-    color: var(--neutral-regular);
+  & > .overlay {
+    @include overlay;
+
+    align-items: center;
+    pointer-events: all;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(2px);
+    cursor: zoom-out;
+
+    .panel {
+      min-width: 550px;
+      padding: 25px 20px;
+      background-color: var(--def);
+      border-radius: 6px;
+      cursor: auto;
+
+      & > label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      &__group {
+        display: flex;
+
+        & > input {
+          margin-right: 15px;
+        }
+
+        & > button {
+          flex-basis: 100px;
+        }
+      }
+    }
   }
-}
-
-.name-input {
-  @include rounded-input;
-
-  width: 100%;
-  padding: 10px 15px 10px 35px;
 }

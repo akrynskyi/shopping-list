@@ -1,45 +1,44 @@
 <h1 class="headline">{{ shoppingService.listName | titlecase }}</h1>
 
-<div
-  class="content-wrapper"
-  *ngIf="shoppingService.list.length; else placeholder"
->
 
-  <ul class="list">
-    <li
-      class="list__item"
-      *ngFor="let item of shoppingService.list, let idx = index"
-      (click)="toDetail(item, idx)"
-    >
-      <div class="group gap">
-        <div class="row">
-          <div class="name">
-            <span class="num">{{ idx + 1 }}.</span>
-            <span
-              [title]="item.name"
-            >
-              {{ item.name | titlecase }}
-            </span>
-          </div>
-        </div>
-
-        <div class="helpers">
-          <span class="tag" *ngIf="item.editDate">
-            Edited: {{ item.editDate | fromNow }}
-          </span>
-          <span class="tag" *ngIf="item.copy">
-            Copy
+<ul
+class="list"
+  *ngIf="shoppingService.list.length else placeholder"
+  >
+  <li
+  class="list__item"
+  *ngFor="let item of shoppingService.list, let idx = index"
+  (click)="toDetail(item)"
+  >
+    <div class="group gap">
+      <div class="row">
+        <div class="name">
+          <span class="num">{{ idx + 1 }}.</span>
+          <span
+            [title]="item.name"
+          >
+            {{ item.name | titlecase }}
           </span>
         </div>
       </div>
-    </li>
-  </ul>
 
-  <div class="wrap">
-    <router-outlet></router-outlet>
-  </div>
+      <div class="helpers">
+        <span class="tag" *ngIf="item.editDate">
+          Edited: {{ item.editDate | fromNow }}
+        </span>
+        <span class="tag" *ngIf="item.copy">
+          Copy
+        </span>
+      </div>
+    </div>
 
-</div>
+    <p class="amount" *ngIf="item.quantity">
+      <b>{{ item.option | titlecase }}: </b>
+      <span>{{ item.quantity }}</span>
+    </p>
+
+  </li>
+</ul>
 
 <ng-template #placeholder>
   <div class="placeholder">

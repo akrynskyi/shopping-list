@@ -2,7 +2,8 @@
   background-color: transparent;
   border-radius: 50px;
 
-  &:focus {
+  &:focus,
+  &:hover {
     background-color: var(--lightex);
   }
 }

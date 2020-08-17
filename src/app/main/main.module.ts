@@ -9,6 +9,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { CreateRecordPageComponent } from './create-record-page/create-record-page.component';
 import { RecordsPageComponent } from './records-page/records-page.component';
+import { RecordDetailsComponent } from './records-page/record-details/record-details.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RecordsPageComponent } from './records-page/records-page.component';
     MainLayoutComponent,
     OverviewPageComponent,
     CreateRecordPageComponent,
-    RecordsPageComponent
+    RecordsPageComponent,
+    RecordDetailsComponent
   ],
   imports: [
     CommonModule,
