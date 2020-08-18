@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Record } from 'src/app/state/records/records.model';
 import { RecordsState } from 'src/app/state/records/records.reducer';
 import { selectAllRecords, selectRecord } from 'src/app/state';
@@ -12,12 +12,13 @@ import { CreateRecord, SelectRecord } from 'src/app/state/records/records.action
   templateUrl: './overview-page.component.html',
   styleUrls: ['./overview-page.component.scss']
 })
-export class OverviewPageComponent implements OnInit {
+export class OverviewPageComponent implements OnInit, OnDestroy {
 
   records$: Observable<Record[]>;
   selectedRecord: Record;
   recordName: string = null;
   createPopup = false;
+  sub: Subscription;
 
   constructor(
     private titleService: Title,
@@ -27,9 +28,15 @@ export class OverviewPageComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Get started | Shopping List');
     this.records$ = this.store.pipe(select(selectAllRecords));
-    this.store
+    this.sub = this.store
       .pipe(select(selectRecord))
       .subscribe(rec => this.selectedRecord = rec);
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   closePopup(e: Event) {
@@ -50,7 +57,7 @@ export class OverviewPageComponent implements OnInit {
     const newRecord: Record = {
       name: this.recordName,
       createDate: Date.now(),
-      shoppingList: []
+      shoppingList: null
     }
 
     this.store.dispatch(new CreateRecord(newRecord));

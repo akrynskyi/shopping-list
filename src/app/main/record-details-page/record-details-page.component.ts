@@ -9,9 +9,6 @@ import { TitleCasePipe } from '@angular/common';
   styleUrls: ['./record-details-page.component.scss']
 })
 export class RecordDetailsPageComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
 
   // @ViewChild('editInp') set editInput(inp: ElementRef) {
   //   if(!inp) return;
@@ -24,29 +21,19 @@ export class RecordDetailsPageComponent implements OnInit {
   // newName: string;
   // timeoutHandle: any;
 
-  // constructor(
-  //   private titleCasePipe: TitleCasePipe,
-  //   private titleService: Title,
-  //   private route: ActivatedRoute,
-  //   private router: Router
-  // ) { }
+  constructor(
+    private titleCasePipe: TitleCasePipe,
+    private titleService: Title,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
-  // ngOnInit(): void {
-  //   this.route.params
-  //     .subscribe(params => {
-  //       const item = this.shoppingService.list.find(item => item.id === +params.id)
-
-  //       if(!item) {
-  //         this.item = null;
-  //         this.router.navigate(['/list']);
-  //         return;
-  //       };
-
-  //       this.item = item;
-  //       this.titleService
-  //         .setTitle(`${this.titleCasePipe.transform(this.item.name)} | Shopping List`);
-  //     });
-  // }
+  ngOnInit(): void {
+    this.route.data
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 
   // edit() {
   //   this.isEditable = true;
@@ -77,4 +64,5 @@ export class RecordDetailsPageComponent implements OnInit {
   //   if(!this.shoppingService.removeItem(this.item)) return;
   //   this.router.navigate(['/list']);
   // }
+  
 }

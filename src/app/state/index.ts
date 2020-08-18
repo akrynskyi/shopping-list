@@ -44,3 +44,10 @@ export const selectRecord = createSelector(
   selectRecordsState,
   fromRecords.getSelectedRecord
 );
+
+export const selectShoppingListItem = createSelector(
+  selectRecordsState,
+  (state: fromRecords.RecordsState, { id }) => {
+    return state.selectedRecord.shoppingList.find(item => item.id === id);
+  }
+);

@@ -4,11 +4,11 @@ import { RecordsActions, RecordsActionTypes } from './records.actions';
 export const initialRecord: Record = {
   name: 'New list',
   createDate: Date.now(),
-  shoppingList: []
+  shoppingList: null
 }
 
 export interface RecordsState {
-  records: Record[],
+  records: Record[] | null,
   selectedRecord: Record | null
 }
 

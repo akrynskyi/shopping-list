@@ -22,13 +22,15 @@ body {
 .headline {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 
   & > p {
     font-size: 14px;
     font-weight: 400;
     color: var(--neutral-regular);
     margin-top: 10px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--neutral-placeholder);
   }
 }
 
@@ -37,12 +39,4 @@ body {
   font-size: 36px;
   font-weight: 300;
   margin-bottom: 40px;
-}
-
-.placeholder {
-  display: flex;
-  justify-content: center;
-  padding: 25px;
-  background-color: var(--def);
-  border: 1px solid var(--base);
 }

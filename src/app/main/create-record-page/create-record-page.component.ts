@@ -6,6 +6,9 @@ import { NotificationService } from '../../shared/services/notification.service'
 import { RecordsState } from 'src/app/state/records/records.reducer';
 import { Record } from 'src/app/state/records/records.model';
 import { selectRecord } from 'src/app/state';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Purchase } from 'src/app/shared/models/purchase.model';
+import { UpdateRecord } from 'src/app/state/records/records.actions';
 
 @Component({
   selector: 'app-create-record-page',
@@ -15,40 +18,62 @@ import { selectRecord } from 'src/app/state';
 export class CreateRecordPageComponent implements OnInit {
 
   selectedRecord$: Observable<Record>;
+  form: FormGroup;
+  step = 10;
 
   constructor(
     private titleService: Title,
     private ns: NotificationService,
+    private fb: FormBuilder,
     private store: Store<RecordsState>
   ) { }
 
   ngOnInit(): void {
-    this.titleService
-      .setTitle(`Add new item | Shopping List`);
+    this.form = this.initForm();
+    this.titleService.setTitle(`Add new item | Shopping List`);
     this.selectedRecord$ = this.store.pipe(select(selectRecord));
+    this.units.valueChanges.subscribe(() => this.quantity.reset(10));
   }
 
-  // create() {
-  //   const name: string = this.name.nativeElement.value;
-  //   const val: number = this.quantity.nativeElement.value;
+  get units() {
+    return this.form.get('units');
+  }
 
-  //   const quantity: string = this.option === 'amount' ? `${val}`
-  //   : this.option === 'weight' && val < 1000 ? `${val}g` : `${val / 1000}kg`;
+  get quantity() {
+    return this.form.get('quantity');
+  }
 
-  //   if (!name.trim()) {
-  //     this.notifService.onEmpty('name');
-  //     this.name.nativeElement.focus();
-  //     return;
-  //   };
+  initForm() {
+    return this.fb.group({
+      name: [null, Validators.required],
+      units: ['amount'],
+      quantity: [10]
+    });
+  }
 
-  //   // this.shoppingService.addItem({
-  //   //   id: Date.now(),
-  //   //   name,
-  //   //   quantity,
-  //   //   option: this.option
-  //   // });
+  calcQuantity() {
+    const val = this.quantity.value / this.step;
+    const units = this.units.value;
+    const weight = units === 'weight' && val < 1000 ? `${val}g` : `${val / 1000}kg`;
+    const amount = units === 'amount' && val > 1 ? `${val}pcs` : `${val}pc`;
+    return units === 'weight' ? weight : amount;
+  }
 
-  //   this.name.nativeElement.value = '';
-  //   this.quantity.nativeElement.value = '';
-  // }
+  onSubmit(record: Record) {
+    const item: Purchase = {
+      ...this.form.value,
+      id: Date.now(),
+      quantity: this.calcQuantity()
+    }
+
+    this.store.dispatch(new UpdateRecord({
+      ...record,
+      updateDate: Date.now(),
+      shoppingList: record.shoppingList ? [...record.shoppingList, item] : [item]
+    }));
+
+    this.form.reset({name: null, units: 'amount', quantity: 10});
+    this.ns.onAdd(item.name, record.name);
+  }
+
 }

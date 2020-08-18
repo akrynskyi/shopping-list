@@ -1,21 +1,23 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { RecordsState } from 'src/app/state/records/records.reducer';
 import { Record } from 'src/app/state/records/records.model';
 import { selectRecord } from 'src/app/state';
 import { UpdateRecord } from 'src/app/state/records/records.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit, AfterViewChecked {
+export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   selectedRecord: Record;
   listName = 'No record selected';
   dropdown = false;
+  sub: Subscription;
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -24,7 +26,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit(): void {
-    this.store
+    this.sub = this.store
       .pipe(select(selectRecord))
       .subscribe(rec => {
         if (!rec) return;
@@ -35,6 +37,12 @@ export class NavbarComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.cdRef.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   calcWidth(mask: HTMLElement, maxWidth = 500) {

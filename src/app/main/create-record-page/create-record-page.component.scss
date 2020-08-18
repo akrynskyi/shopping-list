@@ -1,34 +1,8 @@
 @import '../../../styles/mixins/base-form.mixin.scss';
+@import '../../../styles/mixins/panel.mixin.scss';
 
 .panel {
-  background-color: var(--def);
-  border-radius: 6px;
-  box-shadow:
-    0 1px 2px 0 rgba(60,64,67,.3),
-    0 1px 3px 1px rgba(60,64,67,.15);
-
-  &__header {
-    background-color: var(--lightex);
-    border-bottom: 1px solid var(--base);
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    padding: 35px 40px;
-
-    & > h1 {
-      font-weight: 500;
-      color: var(--neutral-regular);
-
-      i {
-        margin-right: 10px;
-        font-size: 16px;
-      }
-    }
-  }
-
-  &__body {
-    min-height: 540px;
-    padding: 40px 80px;
-  }
+  @include panel;
 }
 
 .form {
@@ -36,5 +10,9 @@
 
   &__control {
     margin-bottom: 35px;
+
+    & > label {
+      margin-bottom: 15px;
+    }
   }
 }

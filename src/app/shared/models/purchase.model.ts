@@ -2,7 +2,7 @@ export interface Purchase {
   id: number,
   name: string,
   quantity: string,
-  option: string,
+  units: string,
   copy?: boolean,
-  editDate?: Date
+  editDate?: number
 }
