@@ -36,7 +36,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
         if (messages[msg.code]) {
           this.onMessage(messages[msg.code], msg.type);
         } else if (msg.code === MessageCodes.withText) {
-          this.onMessage(msg.text);
+          this.onMessage(msg.text, msg.type);
         }
       });
   }

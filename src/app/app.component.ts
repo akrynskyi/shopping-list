@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { Store } from '@ngrx/store';
-import { UserState } from './state/user/user.reducer';
 import { LoadUser } from './state/user/user.actions';
 import { LoadRecords } from './state/records/records.actions';
+import { AppState } from './state';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private store: Store<UserState>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {

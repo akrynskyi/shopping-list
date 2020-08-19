@@ -6,19 +6,30 @@ import { CreateRecordPageComponent } from './create-record-page/create-record-pa
 import { RecordsPageComponent } from './records-page/records-page.component';
 import { RecordDetailsPageComponent } from './record-details-page/record-details-page.component';
 import { PurchaseResolver } from '../shared/purchase.resolver';
+import { RecordDetailsPageGuard } from './record-details-page/record-details-page.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: OverviewPageComponent },
-      { path: 'create', component: CreateRecordPageComponent },
-      { path: 'records', component: RecordsPageComponent },
+      {
+        path: '',
+        component: OverviewPageComponent
+      },
+      {
+        path: 'create',
+        component: CreateRecordPageComponent
+      },
+      {
+        path: 'records',
+        component: RecordsPageComponent
+      },
       {
         path: 'details/:name/:id',
         component: RecordDetailsPageComponent,
-        resolve: { purchase: PurchaseResolver }
+        resolve: { purchase: PurchaseResolver },
+        canDeactivate: [RecordDetailsPageGuard],
       }
     ]
   }

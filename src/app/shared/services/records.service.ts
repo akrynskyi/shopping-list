@@ -20,12 +20,7 @@ export class RecordsService {
   loadRecords(userId: string): Observable<Record[]> {
     return this.http
       .get<db.RecordsList>(`${environment.dbEndpoint}/records/${userId}.json`)
-      .pipe(
-        map(resp => {
-          if (!resp) return [];
-          return Object.keys(resp).map(key => ({...resp[key], id: key}));
-        })
-      );
+      .pipe(map(resp => resp ? Object.keys(resp).map(key => ({...resp[key], id: key})) : []));
   }
 
   createRecord(record: Record): Observable<db.DbResponse> {

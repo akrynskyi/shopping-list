@@ -1,11 +1,10 @@
-.input-field {
+@mixin base-input {
   width: 100%;
   min-height: 40px;
-  padding: 10px 15px;
-  border: 1px solid var(--neutral-placeholder);
-  border-radius: 4px;
   transition: all .2s ease-in-out;
+}
 
+@mixin input-validation {
   &:focus {
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
     border: 2px solid rgba(81, 203, 238, 1);
@@ -20,4 +19,31 @@
     box-shadow: 0 0 5px rgb(81, 238, 120);
     border: 2px solid rgb(81, 238, 120);
   }
+}
+
+
+.input-field {
+  @include base-input;
+
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid var(--neutral-placeholder);
+
+  @include input-validation;
+}
+
+.input-field-rounded {
+  @include base-input;
+
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  background-color: var(--lightex);
+
+  &:disabled {
+    box-shadow: 0 0 5px var(--neutral-placeholder);
+    border: 2px solid var(--neutral-placeholder);
+  }
+
+  @include input-validation;
 }
