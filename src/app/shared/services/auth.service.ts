@@ -6,12 +6,13 @@ import { Observable, throwError } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/state/user/user.model';
-import { SetUser } from 'src/app/state/user/user.actions';
-import { LoadRecords } from 'src/app/state/records/records.actions';
+import { SetUser, LogoutUser } from 'src/app/state/user/user.actions';
+import { LoadRecords, CreateRecord } from 'src/app/state/records/records.actions';
 import { NotificationService } from './notification.service';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import * as auth from '../models/auth.models';
+import { initialRecord } from 'src/app/state/records/records.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +68,10 @@ export class AuthService {
     return this.http
       .post<auth.AuthResponse>(`${environment.signUpEndpoint}${environment.apiKey}`, regBody)
       .pipe(
-        tap(this.setToken.bind(this)),
+        tap((resp) => {
+          this.setToken(resp);
+          this.store.dispatch(new CreateRecord(initialRecord));
+        }),
         switchMap(resp => this.http.put<User>(`${environment.dbEndpoint}/users/${resp.localId}.json`, userDbRecord)),
         catchError(this.errorsHandler.bind(this))
       );
@@ -92,9 +96,16 @@ export class AuthService {
       .pipe(catchError(this.errorsHandler.bind(this)));
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.http
+      .put<User>(`${environment.dbEndpoint}/users/${this.userId}.json`, user)
+      .pipe(catchError(this.errorsHandler.bind(this)));
+  }
+
   logout() {
     localStorage.removeItem(this.AUTH_TOKEN);
     this.router.navigate([''], {queryParams: {message: 'logout' }});
+    this.store.dispatch(new LogoutUser());
   }
 
 }

@@ -3,9 +3,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store, select } from '@ngrx/store';
 import { RecordsState } from 'src/app/state/records/records.reducer';
 import { Record } from 'src/app/state/records/records.model';
-import { selectRecord } from 'src/app/state';
+import { selectRecord, selectUser } from 'src/app/state';
 import { UpdateRecord } from 'src/app/state/records/records.actions';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { User } from 'src/app/state/user/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   selectedRecord: Record;
+  user$: Observable<User>;
   listName = 'No record selected';
   dropdown = false;
   sub: Subscription;
@@ -33,6 +35,7 @@ export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.selectedRecord = rec;
         this.listName = rec.name;
       });
+    this.user$ = this.store.pipe(select(selectUser));
   }
 
   ngAfterViewChecked(): void {

@@ -1,0 +1,58 @@
+<div
+  class="profile"
+  *ngIf="user$ | async as user"
+>
+  <div class="profile__picture">
+    <i class="fas fa-user-alt"></i>
+  </div>
+  <div class="profile__info">
+    <div class="row">
+      <div
+        class="row__content"
+        *ngIf="!edit"
+      >
+        <p>
+          <b>Name: </b>
+          <span>{{ user.username }}</span>
+        </p>
+        <button
+          class="btn b-icon small"
+          (click)="editUser(user)"
+        >
+          <i class="fas fa-pen"></i>
+        </button>
+      </div>
+      <div
+        class="row__content"
+        *ngIf="edit"
+      >
+        <input
+          type="text"
+          class="input-field-rounded"
+          [(ngModel)]="username"
+        >
+        <button
+          class="btn b-icon small"
+          (click)="updateUser(user)"
+        >
+          <i
+            class="fas fa-times"
+            *ngIf="user.username === username"
+          ></i>
+          <i
+            class="far fa-save"
+            *ngIf="user.username !== username"
+          ></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row__content">
+        <p>
+          <b>Email: </b>
+          <span>{{ user.email }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

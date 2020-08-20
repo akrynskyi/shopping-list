@@ -48,6 +48,10 @@
     display: flex;
     align-items: center;
 
+    & > button:hover {
+      background: var(--neutral-primary);
+    }
+
     & > .confirm-btn {
       margin-right: 10px;
       color: var(--def);

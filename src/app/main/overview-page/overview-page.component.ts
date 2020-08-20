@@ -5,7 +5,9 @@ import { Observable, Subscription } from 'rxjs';
 import { Record } from 'src/app/state/records/records.model';
 import { RecordsState } from 'src/app/state/records/records.reducer';
 import { selectAllRecords, selectRecord } from 'src/app/state';
-import { CreateRecord, SelectRecord } from 'src/app/state/records/records.actions';
+import { CreateRecord, SelectRecord, DeleteRecord } from 'src/app/state/records/records.actions';
+import { NotificationService, MessageCodes } from 'src/app/shared/services/notification.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-overview-page',
@@ -18,11 +20,13 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
   selectedRecord: Record;
   recordName: string = null;
   createPopup = false;
+  clickedItemId: string;
   sub: Subscription;
 
   constructor(
     private titleService: Title,
-    private store: Store<RecordsState>
+    private store: Store<RecordsState>,
+    private ns: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +53,9 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
     return this.selectedRecord.id === id;
   }
 
-  selectRecord(record: Record) {
+  selectRecord(e: Event, record: Record) {
+    if (e.target !== e.currentTarget) return;
+    this.clickedItemId = null;
     this.store.dispatch(new SelectRecord(record));
   }
 
@@ -63,6 +69,18 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(new CreateRecord(newRecord));
     this.recordName = null;
     this.createPopup = false;
+  }
+
+  deleteRecord(record: Record) {
+    this.clickedItemId = null;
+
+    this.ns.confirm(
+      MessageCodes.withText,
+      `🗑️ Are you sure you want to delete "${record.name.toLowerCase()}" list? You can\'t undo this action`
+    ).pipe(take(1)).subscribe(val => {
+      if (!val) return;
+      this.store.dispatch(new DeleteRecord(record));
+    });
   }
 
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, tap } from 'rxjs/operators';
 import { RecordsService } from 'src/app/shared/services/records.service';
 import {
   RecordsActionTypes,
@@ -9,7 +9,9 @@ import {
   UpdateRecord,
   RecordUpdated,
   RecordsLoaded,
-  RecordCreated
+  RecordCreated,
+  DeleteRecord,
+  RecordDeleted
 } from './records.actions';
 
 @Injectable({
@@ -43,6 +45,16 @@ export class RecordsEffects {
     mergeMap((action: UpdateRecord) =>
       this.records.updateRecord(action.payload).pipe(
         map(resp => new RecordUpdated(resp))
+      )
+    )
+  );
+
+  @Effect()
+  deleteRecord$ = this.actions$.pipe(
+    ofType(RecordsActionTypes.deleteRecord),
+    mergeMap((action: DeleteRecord) =>
+      this.records.deleteRecord(action.payload).pipe(
+        map(() => new RecordDeleted())
       )
     )
   );

@@ -13,20 +13,21 @@ export interface RecordsState {
 }
 
 export const initialState: RecordsState = {
-  records: [initialRecord],
+  records: [],
   selectedRecord: null
 }
 
 const createRecord = (records: Record[], record: Record) => [...records, record];
 const updateRecord = (records: Record[], record: Record) => records
   .map(rec => rec.id === record.id ? Object.assign({}, record) : rec);
+const deleteRecord = (records: Record[], record: Record) => records.filter(rec => rec.id !== record.id);
 
 export function recordsReducer(state = initialState, action: RecordsActions): RecordsState {
   switch (action.type) {
     case RecordsActionTypes.recordCreated:
       return {
         records: createRecord(state.records, action.payload),
-        selectedRecord: state.selectedRecord
+        selectedRecord: action.payload
       }
 
     case RecordsActionTypes.recordUpdated:
@@ -45,6 +46,12 @@ export function recordsReducer(state = initialState, action: RecordsActions): Re
       return {
         records: state.records,
         selectedRecord: action.payload
+      }
+
+    case RecordsActionTypes.deleteRecord:
+      return {
+        records: deleteRecord(state.records, action.payload),
+        selectedRecord: state.records[0]
       }
 
     default:

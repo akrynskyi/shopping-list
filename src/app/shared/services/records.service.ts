@@ -33,4 +33,8 @@ export class RecordsService {
       .put<Record>(`${environment.dbEndpoint}/records/${this.auth.userId}/${record.id}.json`, record);
   }
 
+  deleteRecord(record: Record): Observable<null> {
+    return this.http.delete<null>(`${environment.dbEndpoint}/records/${this.auth.userId}/${record.id}.json`);
+  }
+
 }

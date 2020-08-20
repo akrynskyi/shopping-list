@@ -2,8 +2,15 @@ import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { UserActionTypes, LoadUser, SetUser, LoginUser, RegisterUser } from './user.actions';
 import { mergeMap, map, exhaustMap, tap } from 'rxjs/operators';
+import {
+  UserActionTypes,
+  LoadUser,
+  SetUser,
+  LoginUser,
+  RegisterUser,
+  UpdateUser
+} from './user.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +26,7 @@ export class UserEffects {
         map(user => new SetUser(user))
       )
     )
-  )
+  );
 
   @Effect()
   loginUser$ = this.actions$.pipe(
@@ -30,7 +37,17 @@ export class UserEffects {
         map(user => new SetUser(user))
       )
     )
-  )
+  );
+
+  @Effect()
+  updateUser$ = this.actions$.pipe(
+    ofType(UserActionTypes.updateUser),
+    mergeMap((action: UpdateUser) =>
+      this.auth.updateUser(action.payload).pipe(
+        map(user => new SetUser(user))
+      )
+    )
+  );
 
   @Effect()
   loadUser$ = this.actions$.pipe(
