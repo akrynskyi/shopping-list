@@ -1,27 +1,74 @@
-<h1 class="headline">Add item to {{ shoppingService.listName | lowercase }}</h1>
-
-<form class="form-group" (submit)="create()">
-  <div class="form-control">
-    <input
-      type="text"
-      placeholder="Name"
-      class="input-field"
-      #name
+<div
+  class="panel"
+  *ngIf="selectedRecord$ | async as record"
+>
+  <div class="panel__header">
+    <h1>
+      <i class="fas fa-link"></i>
+      <span>{{ record.name | titlecase }} | Add new item</span>
+    </h1>
+  </div>
+  <div class="panel__body">
+    <form
+      class="form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit(record)"
     >
+      <div class="form__control">
+        <label>Item name</label>
+        <input
+          type="text"
+          class="input-field"
+          formControlName="name"
+        >
+        <div
+          class="form__errors"
+          *ngIf="form.get('name').touched && form.get('name').invalid"
+        >
+          <span *ngIf="form.get('name').hasError('required')">
+            💡 Name is required
+          </span>
+        </div>
+      </div>
+      <div class="form__control">
+        <label>Item Units</label>
+        <div class="select">
+          <select
+            class="input-field validation-disable"
+            formControlName="units"
+          >
+            <option value="amount">Amount</option>
+            <option value="weight">Weight</option>
+          </select>
+        </div>
+      </div>
+      <div class="form__control">
+        <label>Item Quantity</label>
+        <div class="range-slider">
+          <input
+            class="range-slider__range"
+            type="range"
+            [step]="step"
+            [min]="step"
+            [max]="units.value === 'amount' ? step * 1000 : step * 100000"
+            formControlName="quantity"
+          >
+          <span
+            class="range-slider__value"
+          >
+            {{ calcQuantity() }}
+          </span>
+        </div>
+      </div>
+      <div class="form__action">
+        <button
+          class="btn"
+          type="submit"
+          [class.success]="form.valid"
+          [disabled]="form.invalid"
+          [title]="form.invalid ? 'form invalid' : 'add item'"
+        >Add Item</button>
+      </div>
+    </form>
   </div>
-  <div class="form-control">
-    <input
-      type="number"
-      [placeholder]="option | titlecase"
-      class="input-field"
-      #quantity
-    >
-  </div>
-  <div class="form-control right">
-    <select #select (change)="option = select.value">
-      <option value="amount">Amount</option>
-      <option value="weight">Weight</option>
-    </select>
-  </div>
-  <button type="submit" class="btn">Add</button>
-</form>
+</div>

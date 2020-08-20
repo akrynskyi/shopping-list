@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { RecordsService } from 'src/app/shared/services/records.service';
-import { RecordsActionTypes, LoadRecords, SetRecords, CreateRecord, AddRecord } from './records.actions';
 import { mergeMap, map } from 'rxjs/operators';
+import { RecordsService } from 'src/app/shared/services/records.service';
+import {
+  RecordsActionTypes,
+  LoadRecords,
+  CreateRecord,
+  UpdateRecord,
+  RecordUpdated,
+  RecordsLoaded,
+  RecordCreated
+} from './records.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +22,7 @@ export class RecordsEffects {
     ofType(RecordsActionTypes.loadRecords),
     mergeMap((action: LoadRecords) =>
       this.records.loadRecords(action.payload).pipe(
-        map(records => new SetRecords(records))
+        map(resp => new RecordsLoaded(resp))
       )
     )
   );
@@ -24,7 +32,17 @@ export class RecordsEffects {
     ofType(RecordsActionTypes.createRecord),
     mergeMap((action: CreateRecord) =>
       this.records.createRecord(action.payload).pipe(
-        map(resp => new AddRecord({...action.payload, id: resp.name}))
+        map(resp => new RecordCreated({...action.payload, id: resp.name}))
+      )
+    )
+  );
+
+  @Effect()
+  updateRecord$ = this.actions$.pipe(
+    ofType(RecordsActionTypes.updateRecord),
+    mergeMap((action: UpdateRecord) =>
+      this.records.updateRecord(action.payload).pipe(
+        map(resp => new RecordUpdated(resp))
       )
     )
   );

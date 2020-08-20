@@ -20,13 +20,18 @@
       margin-bottom: 15px;
     }
 
-    &:hover {
-      border-color: var(--accent-primary);
-      border-left: 8px solid var(--accent-primary);
+    &:hover:not(.selected) {
+      border-color: var(--accent-secondary);
+      border-left: 8px solid var(--accent-secondary);
+    }
+
+    &.selected {
+      border-color: rgb(81, 238, 120);
+      border-left: 8px solid rgb(81, 238, 120);
     }
 
     & > p {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 
@@ -41,13 +46,6 @@
     }
   }
 }
-
-// .name-input {
-//   @include rounded-input;
-
-//   width: 100%;
-//   padding: 10px 15px 10px 35px;
-// }
 
 .create-record {
   display: flex;

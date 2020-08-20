@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NotificationService } from '../../services/notification.service';
+import { NotificationService, MessageCodes } from '../../services/notification.service';
 import messages from './snackbar.messages';
 
 @Component({
@@ -35,6 +35,8 @@ export class SnackbarComponent implements OnInit, OnDestroy {
       .subscribe(msg => {
         if (messages[msg.code]) {
           this.onMessage(messages[msg.code], msg.type);
+        } else if (msg.code === MessageCodes.withText) {
+          this.onMessage(msg.text);
         }
       });
   }
@@ -76,4 +78,5 @@ export class SnackbarComponent implements OnInit, OnDestroy {
     clearTimeout(this.timeoutHandle);
     this.reset();
   }
+
 }

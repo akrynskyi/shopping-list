@@ -1,47 +1,55 @@
-<h1 class="headline">{{ shoppingService.listName | titlecase }}</h1>
-
-
-<ul
-class="list"
-  *ngIf="shoppingService.list.length else placeholder"
-  >
-  <li
-  class="list__item"
-  *ngFor="let item of shoppingService.list, let idx = index"
-  (click)="toDetail(item)"
-  >
-    <div class="group gap">
-      <div class="row">
-        <div class="name">
-          <span class="num">{{ idx + 1 }}.</span>
-          <span
-            [title]="item.name"
-          >
-            {{ item.name | titlecase }}
-          </span>
-        </div>
-      </div>
-
-      <div class="helpers">
-        <span class="tag" *ngIf="item.editDate">
-          Edited: {{ item.editDate | fromNow }}
-        </span>
-        <span class="tag" *ngIf="item.copy">
-          Copy
-        </span>
-      </div>
-    </div>
-
-    <p class="amount" *ngIf="item.quantity">
-      <b>{{ item.option | titlecase }}: </b>
-      <span>{{ item.quantity }}</span>
-    </p>
-
-  </li>
-</ul>
-
-<ng-template #placeholder>
-  <div class="placeholder">
-    <p>List is empty</p>
+<div
+  class="panel"
+  *ngIf="selectedRecord$ | async as record"
+>
+  <div class="panel__header">
+    <h1>
+      <i class="fas fa-link"></i>
+      <span>{{ record.name | titlecase }}</span>
+    </h1>
   </div>
-</ng-template>
+  <div class="panel__body">
+    <ul
+      class="sh-list"
+      *ngIf="record.shoppingList; else placeholder"
+    >
+      <li
+        class="sh-list__item"
+        *ngFor="let item of record.shoppingList, let idx = index"
+        (click)="toDetail(item)"
+      >
+        <div class="row">
+          <div class="name">
+            <b>{{ idx + 1 }}.</b>
+            <span>{{ item.name | titlecase }}</span>
+          </div>
+          <div class="tags">
+            <span
+              class="tags__tag"
+              *ngIf="item.editDate"
+            >
+              Edited: {{ item.editDate | fromNow }}
+            </span>
+            <span
+              class="tags__tag"
+              *ngIf="item.copy"
+            >
+              Copy
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="quantity">
+            <span>{{ item.units }}:</span>
+            <small>{{ item.quantity }}</small>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ng-template #placeholder>
+      <div class="placeholder">
+        <p>List is empty...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

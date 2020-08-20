@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Purchase } from './shopping.service';
 import { Subject, Observable } from 'rxjs';
+import { Purchase } from '../models/purchase.model';
 
 export interface NotifMessage {
   type: 'default' | 'confirm',
-  code: string
+  code: string,
+  text?: string
+}
+
+export enum MessageCodes {
+  withText = 'with:text'
 }
 
 @Injectable({
@@ -18,21 +23,24 @@ export class NotificationService {
   constructor() { }
 
   onAdd(itemName: string, listName: string) {
-    alert(`📝 You add ${itemName.toLowerCase()} to ${listName.toLowerCase()}`);
-  }
-
-  onEmpty(value: string) {
-    alert(`💡 Field ${value.toLowerCase()} can't be empty...`);
+    this.message.next({
+      type: 'default',
+      code: MessageCodes.withText,
+      text: `📝 You add ${itemName.toLowerCase()} to ${listName.toLowerCase()}`
+    });
   }
 
   onRemove(item: Purchase, listName: string) {
-    return confirm(
-      `🗑️ Are you sure to delete ${item.name.toLowerCase()} from ${listName.toLowerCase()}? ${item.copy ? '[Copy]' : '[Original]'}`
-    );
+    this.message.next({
+      type: 'confirm',
+      code: MessageCodes.withText,
+      text: `🗑️ Are you sure to delete ${item.name.toLowerCase()} from ${listName.toLowerCase()}? ${item.copy ? '[Copy]' : '[Original]'}`
+    })
   }
 
   confirm(msgCode: string): Observable<boolean> {
     this.message.next({type: 'confirm', code: msgCode});
     return this.notify.asObservable();
   }
+
 }

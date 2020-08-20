@@ -33,4 +33,9 @@ export class RecordsService {
       .post<db.DbResponse>(`${environment.dbEndpoint}/records/${this.auth.userId}.json`, record);
   }
 
+  updateRecord(record: Record): Observable<Record> {
+    return this.http
+      .put<Record>(`${environment.dbEndpoint}/records/${this.auth.userId}/${record.id}.json`, record);
+  }
+
 }
