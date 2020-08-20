@@ -71,7 +71,14 @@
               (click)="dropdown = false"
             ></i>
           </li>
-          <li>Profile</li>
+          <li
+            (click)="dropdown = false"
+            *ngIf="user$ | async as user"
+          >
+            <a
+              [routerLink]="['../home', 'profile', user.username | lowercase]"
+            >Profile</a>
+          </li>
           <li
             (click)="auth.logout()"
           >Log out</li>

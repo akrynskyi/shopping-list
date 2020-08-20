@@ -1,5 +1,6 @@
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector, createSelector, ActionReducer, Action, INIT } from '@ngrx/store';
 
+import { UserActionTypes } from './user/user.actions';
 import * as fromUser from './user/user.reducer';
 import * as fromRecords from './records/records.reducer';
 
@@ -51,3 +52,17 @@ export const selectShoppingListItem = createSelector(
     return state.selectedRecord.shoppingList.find(item => item.id === id);
   }
 );
+
+/*
+ * META REDUCER
+*/
+
+export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
+  return (state: AppState, action: Action) => {
+    if (action.type === UserActionTypes.logoutUser) {
+      return reducer(undefined, { type: INIT });
+    }
+
+    return reducer(state, action);
+  }
+}

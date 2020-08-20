@@ -13,8 +13,8 @@
         shoppinglist.app
       </p>
       <a
-        href="#"
         *ngIf="user$ | async as user"
+        [routerLink]="['../home', 'profile', user.username]"
       >@{{ user.username }}</a>
     </div>
   </footer>

@@ -8,6 +8,9 @@ export enum RecordsActionTypes {
   updateRecord = '[Record] Update',
   recordUpdated = '[Record] Updated',
 
+  deleteRecord = '[Record] Delete',
+  recordDeleted = '[Record] Deleted',
+
   loadRecords = '[Records] Load',
   recordsLoaded = '[Records] Loaded',
 
@@ -34,6 +37,16 @@ export class RecordUpdated implements Action {
   constructor(public payload: Record) { }
 }
 
+export class DeleteRecord implements Action {
+  readonly type = RecordsActionTypes.deleteRecord;
+  constructor(public payload: Record) { }
+}
+
+export class RecordDeleted implements Action {
+  readonly type = RecordsActionTypes.recordDeleted;
+  constructor() { }
+}
+
 export class LoadRecords implements Action {
   readonly type = RecordsActionTypes.loadRecords;
   constructor(public payload: string) { }
@@ -53,6 +66,8 @@ export type RecordsActions = CreateRecord
   | RecordCreated
   | UpdateRecord
   | RecordUpdated
+  | DeleteRecord
+  | RecordDeleted
   | LoadRecords
   | RecordsLoaded
   | SelectRecord;

@@ -42,8 +42,8 @@ export class NotificationService {
     return this.notify.asObservable();
   }
 
-  confirm(msgCode: string): Observable<boolean> {
-    this.message.next({type: 'confirm', code: msgCode});
+  confirm(msgCode: string, text?: string): Observable<boolean> {
+    this.message.next({type: 'confirm', code: msgCode, text});
     return this.notify.asObservable();
   }
 

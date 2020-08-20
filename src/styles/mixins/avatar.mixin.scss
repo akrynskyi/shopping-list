@@ -1,0 +1,14 @@
+@mixin avatar($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  border: 1px solid var(--neutral-placeholder);
+  background-color: var(--base);
+  color: var(--def);
+  font-size: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
