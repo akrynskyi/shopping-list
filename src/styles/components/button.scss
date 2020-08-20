@@ -1,19 +1,9 @@
 @import '../mixins/cleanup-btn.mixin.scss';
+@import '../mixins/circle-btn.mixin.scss';
 
-.btn {
+@mixin  ripple {
   position: relative;
-  font-family: inherit;
-  font-weight: 500;
-  padding: 10px 20px;
-  background-color: var(--accent-main);
-  color: var(--base);
-  border-radius: 4px;
-  cursor: pointer;
   overflow: hidden;
-
-  &:not(.b-icon) {
-    min-height: 40px;
-  }
 
   &::before {
     content: "";
@@ -32,6 +22,21 @@
     transition: 0s;
     opacity: 1;
     transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.btn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 10px 20px;
+  color: var(--base);
+  border-radius: 4px;
+  font-family: inherit;
+  background-color: var(--accent-main);
+  @include ripple;
+
+  &:not(.b-icon) {
+    min-height: 40px;
   }
 
   &:disabled {
@@ -83,14 +88,6 @@
     }
   }
 
-  &.gap-right {
-    margin-right: 25px;
-  }
-
-  &.danger {
-    border: 1px solid var(--accent-main);
-  }
-
   &-secondary {
     color: var(--neutral-primary);
     background: transparent;
@@ -122,6 +119,11 @@
       color: var(--neutral-primary);
     }
   }
+}
+
+.circle-btn {
+  @include circle-btn;
+  @include ripple;
 }
 
 .btn-clean {

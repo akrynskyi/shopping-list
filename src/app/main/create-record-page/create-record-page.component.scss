@@ -3,6 +3,10 @@
 
 .panel {
   @include panel;
+
+  &__body {
+    min-height: unset;
+  }
 }
 
 .form {
@@ -14,5 +18,9 @@
     & > label {
       margin-bottom: 15px;
     }
+  }
+
+  &__action {
+    padding: 20px 0px;
   }
 }

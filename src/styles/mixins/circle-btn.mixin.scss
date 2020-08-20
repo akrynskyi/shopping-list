@@ -1,0 +1,17 @@
+@mixin circle-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--neutral-regular);
+  transition: background .2s linear;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--light);
+  }
+}

@@ -1,92 +1,116 @@
-<!-- <ul class="breadcrumbs" *ngIf="item">
-  <li>
-    <a class="breadcrumbs__link" routerLink="/list">
-      {{ shoppingService.listName | lowercase}}
-    </a>
-  </li>
-  <li class="breadcrumbs__slash">/</li>
-  <li>
-    <a
-      class="breadcrumbs__link active"
-      [routerLink]="['/detail', item.name, item.id]"
-    >
-      {{ item.name | lowercase}}
-    </a>
-  </li>
-</ul>
-
 <div
-  class="list__item"
+  class="panel"
   *ngIf="item"
 >
-  <div class="group gap">
-
-    <div class="row">
-      <div class="name" *ngIf="!isEditable">
-        <span
-          [title]="item.name"
-        >
-          {{ item.name | titlecase }}
-        </span>
-        <button
-          class="btn b-icon"
-          title="Edit"
-          (click)="edit()"
-        >
-          <i class="fas fa-pen"></i>
-        </button>
-      </div>
-
-      <div class="edit" *ngIf="isEditable">
-        <input
-          type="text"
-          class="edit-input"
-          (keydown.enter)="save()"
-          [(ngModel)]="newName"
-          #editInp
-        >
-        <button
-          class="btn b-icon save-btn"
-          title="Save"
-          (click)="save()"
-        >
-          <i class="far fa-save"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="helpers">
-      <span class="tag" *ngIf="item.editDate">
-        Edited: {{ item.editDate | fromNow }}
-      </span>
-      <span class="tag" *ngIf="item.copy">
-        Copy
-      </span>
-    </div>
-
+  <div class="panel__header">
+    <h1>
+      <i class="fas fa-link"></i>
+      <a
+        [routerLink]="['/home', 'records']"
+      >
+        {{ selectedRecord.name }}
+      </a>
+      <span>/ {{ item.name }}</span>
+    </h1>
   </div>
-
-  <p class="amount" *ngIf="item.quantity">
-    <b>{{ item.option | titlecase }}: </b>
-    <span>{{ item.quantity }}</span>
-  </p>
-
-  <div class="group">
-    <button
-      class="btn btn-secondary danger"
-      (click)="remove()"
-    >Delete</button>
-
-    <div class="clone">
-      <span
-        class="clone__popover"
-        [class.active]="isCloned"
-      >Item cloned!</span>
-
-      <button
-        class="btn btn-secondary"
-        (click)="clone()"
-      >Clone</button>
-    </div>
+  <div class="panel__body">
+    <form
+      class="form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+      <div>
+        <div class="form__control">
+          <label>Name</label>
+          <input
+            type="text"
+            class="input-field-rounded"
+            formControlName="name"
+            #nameInput
+          >
+          <div
+            class="form__errors"
+            *ngIf="form.get('name').touched && form.get('name').invalid"
+          >
+            <span *ngIf="form.get('name').hasError('required')">
+              💡 Name is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__control">
+          <label>Units</label>
+          <input
+            type="text"
+            class="input-field-rounded"
+            formControlName="units"
+          >
+        </div>
+        <div class="form__control">
+          <label>Quantity</label>
+          <input
+            type="text"
+            class="input-field-rounded"
+            formControlName="quantity"
+          >
+          <div
+            class="form__errors"
+            *ngIf="form.get('quantity').touched && form.get('quantity').invalid"
+          >
+            <span *ngIf="form.get('quantity').hasError('required')">
+              💡 Quantity is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__column">
+          <a
+            class="circle-btn"
+            [routerLink]="['/home', 'records']"
+          >
+            <i class="fas fa-arrow-alt-circle-left"></i>
+          </a>
+          <button
+            class="circle-btn"
+            type="button"
+            (click)="removeItem()"
+          >
+            <i class="fas fa-eraser"></i>
+          </button>
+          <div class="with-tooltip">
+            <span
+              class="with-tooltip__popover"
+              [class.active]="isCloned"
+            >Item cloned!</span>
+            <button
+              class="circle-btn"
+              type="button"
+              (click)="cloneItem()"
+            >
+              <i class="fas fa-clone"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form__column">
+          <div
+            class="with-tooltip"
+            *ngIf="isDirty"
+          >
+            <span
+              class="with-tooltip__popover"
+              [class.active]="isSaved"
+            >Changes saved!</span>
+            <button
+              class="circle-btn"
+              type="submit"
+            >
+              <i class="far fa-save"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-</div> -->
+</div>

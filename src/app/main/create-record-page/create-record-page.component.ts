@@ -30,7 +30,7 @@ export class CreateRecordPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.initForm();
-    this.titleService.setTitle(`Add new item | Shopping List`);
+    this.titleService.setTitle(`Add New Item | Shopping List`);
     this.selectedRecord$ = this.store.pipe(select(selectRecord));
     this.units.valueChanges.subscribe(() => this.quantity.reset(10));
   }

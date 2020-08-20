@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterUserComponent } from './register-user.component';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { NotificationService, MessageCodes } from 'src/app/shared/services/notification.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class RegisterUserGuard implements CanDeactivate<RegisterUserComponent> {
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot
   ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return !component.form.pristine ? this.ns.confirm('auth:can-deactivate') : true;
+    return !component.form.pristine ? this.ns.confirm(MessageCodes.canDeactivateAuth) : true;
   }
 
 }

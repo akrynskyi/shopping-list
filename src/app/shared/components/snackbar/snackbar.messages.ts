@@ -3,6 +3,7 @@ export default {
   'logout': '❌ You are logged out',
   'not-authenticated': '🔑 Please logged in to continue',
   'auth:can-deactivate': '🏃‍♂️ Are you sure to leave this page? You changes did\'nt save yet',
+  'page:can-deactivate': '💾 Do you really want to leave this page? You didn\'t save your changes yet!',
 
   // FB AUTH ERRORS
 

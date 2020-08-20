@@ -9,7 +9,9 @@ export interface NotifMessage {
 }
 
 export enum MessageCodes {
-  withText = 'with:text'
+  withText = 'with:text',
+  canDeactivateAuth = 'auth:can-deactivate',
+  canDeactivatePage = 'page:can-deactivate'
 }
 
 @Injectable({
@@ -35,7 +37,9 @@ export class NotificationService {
       type: 'confirm',
       code: MessageCodes.withText,
       text: `🗑️ Are you sure to delete ${item.name.toLowerCase()} from ${listName.toLowerCase()}? ${item.copy ? '[Copy]' : '[Original]'}`
-    })
+    });
+
+    return this.notify.asObservable();
   }
 
   confirm(msgCode: string): Observable<boolean> {
