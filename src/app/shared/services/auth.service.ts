@@ -6,13 +6,13 @@ import { Observable, throwError } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/state/user/user.model';
+import { initialRecord } from 'src/app/state/records/records.reducer';
 import { SetUser, LogoutUser } from 'src/app/state/user/user.actions';
 import { LoadRecords, CreateRecord } from 'src/app/state/records/records.actions';
 import { NotificationService } from './notification.service';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import * as auth from '../models/auth.models';
-import { initialRecord } from 'src/app/state/records/records.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class AuthService {
     if (!token) return null;
 
     if (new Date().getTime() > new Date(expDate).getTime()) {
-      this.logout();
+      this.logout('session-expired');
       return null;
     }
 
@@ -102,9 +102,9 @@ export class AuthService {
       .pipe(catchError(this.errorsHandler.bind(this)));
   }
 
-  logout() {
+  logout(message = 'logout') {
     localStorage.removeItem(this.AUTH_TOKEN);
-    this.router.navigate([''], {queryParams: {message: 'logout' }});
+    this.router.navigate([''], {queryParams: { message }});
     this.store.dispatch(new LogoutUser());
   }
 

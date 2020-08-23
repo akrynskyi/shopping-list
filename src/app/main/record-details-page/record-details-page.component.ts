@@ -7,6 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
+import { v4 as uuidv4 } from 'uuid';
 import { selectRecord } from 'src/app/state';
 import { Record } from 'src/app/state/records/records.model';
 import { Purchase } from 'src/app/shared/models/purchase.model';
@@ -100,7 +101,7 @@ export class RecordDetailsPageComponent implements OnInit, OnDestroy {
   cloneItem() {
     const clonedItem: Purchase = {
       ...this.item,
-      id: Date.now(),
+      id: uuidv4(),
       copy: true
     };
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 import { RecordsService } from 'src/app/shared/services/records.service';
 import {
   RecordsActionTypes,

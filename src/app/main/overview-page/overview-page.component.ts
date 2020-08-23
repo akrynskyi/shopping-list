@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Record } from 'src/app/state/records/records.model';
 import { RecordsState } from 'src/app/state/records/records.reducer';
-import { selectAllRecords, selectRecord } from 'src/app/state';
+import { selectAllRecords, selectRecord, selectRecordsLoading } from 'src/app/state';
 import { CreateRecord, SelectRecord, DeleteRecord } from 'src/app/state/records/records.actions';
 import { NotificationService, MessageCodes } from 'src/app/shared/services/notification.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-overview-page',
@@ -16,11 +16,13 @@ import { take } from 'rxjs/operators';
 })
 export class OverviewPageComponent implements OnInit, OnDestroy {
 
+  recordsLoaded$: Observable<boolean>;
   records$: Observable<Record[]>;
   selectedRecord: Record;
   recordName: string = null;
   createPopup = false;
   clickedItemId: string;
+  sortOption = 'new:first';
   sub: Subscription;
 
   constructor(
@@ -31,6 +33,7 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.titleService.setTitle('Get started | Shopping List');
+    this.recordsLoaded$ = this.store.pipe(select(selectRecordsLoading));
     this.records$ = this.store.pipe(select(selectAllRecords));
     this.sub = this.store
       .pipe(select(selectRecord))

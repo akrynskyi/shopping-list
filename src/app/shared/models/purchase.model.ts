@@ -1,5 +1,5 @@
 export interface Purchase {
-  id: number,
+  id: string,
   name: string,
   quantity: string,
   units: string,

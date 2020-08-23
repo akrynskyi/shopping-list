@@ -1,0 +1,5 @@
+@mixin title($fontSize, $fontWeight) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  margin-bottom: 40px;
+}

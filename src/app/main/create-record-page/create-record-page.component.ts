@@ -1,14 +1,16 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { NotificationService } from '../../shared/services/notification.service';
-import { RecordsState } from 'src/app/state/records/records.reducer';
-import { Record } from 'src/app/state/records/records.model';
+
+import { v4 as uuidv4 } from 'uuid';
 import { selectRecord } from 'src/app/state';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Record } from 'src/app/state/records/records.model';
 import { Purchase } from 'src/app/shared/models/purchase.model';
+import { RecordsState } from 'src/app/state/records/records.reducer';
 import { UpdateRecord } from 'src/app/state/records/records.actions';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-create-record-page',
@@ -62,7 +64,7 @@ export class CreateRecordPageComponent implements OnInit {
   onSubmit(record: Record) {
     const item: Purchase = {
       ...this.form.value,
-      id: Date.now(),
+      id: uuidv4(),
       quantity: this.calcQuantity()
     }
 

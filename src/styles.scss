@@ -18,25 +18,3 @@ body {
   width: 100%;
   margin: 0 auto;
 }
-
-.headline {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 40px;
-
-  & > p {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--neutral-regular);
-    margin-top: 10px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--neutral-placeholder);
-  }
-}
-
-.heading {
-  text-align: center;
-  font-size: 36px;
-  font-weight: 300;
-  margin-bottom: 40px;
-}

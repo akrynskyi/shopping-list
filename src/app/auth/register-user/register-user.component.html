@@ -12,7 +12,6 @@
         <span>Back to sign in</span>
       </a>
     </div>
-
     <div class="form__control">
       <label>Username</label>
       <input
@@ -29,7 +28,6 @@
         </span>
       </div>
     </div>
-
     <div class="form__control">
       <label>Email</label>
       <input
@@ -49,7 +47,6 @@
         </span>
       </div>
     </div>
-
     <div class="form__control">
       <label>Password</label>
       <input
@@ -69,7 +66,6 @@
         </span>
       </div>
     </div>
-
     <div class="form__control">
       <label>Confirm password</label>
       <input
@@ -89,7 +85,6 @@
         </span>
       </div>
     </div>
-
     <div class="form__action">
       <button
         type="submit"
@@ -97,7 +92,9 @@
         [class.success]="form.valid"
         [disabled]="form.invalid"
         [title]="form.invalid ? 'complete all fields to continue' : 'create'"
-      >Create</button>
+      >
+        Create
+      </button>
     </div>
   </form>
 </div>

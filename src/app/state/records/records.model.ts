@@ -7,8 +7,3 @@ export interface Record {
   updateDate?: number,
   shoppingList: Purchase[]
 }
-
-export interface UpdateProps {
-  record: Record,
-  message?: string
-}
