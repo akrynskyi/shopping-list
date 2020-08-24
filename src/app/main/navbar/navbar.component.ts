@@ -47,6 +47,11 @@ export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
+  showDropdown(e: Event) {
+    e.stopPropagation();
+    this.dropdown = true;
+  }
+
   calcWidth(mask: HTMLElement, maxWidth = 500) {
     return maxWidth > mask.offsetWidth ? mask.offsetWidth : maxWidth;
   }

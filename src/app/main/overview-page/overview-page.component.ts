@@ -21,6 +21,8 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
   selectedRecord: Record;
   recordName: string = null;
   createPopup = false;
+  dropdownMenu = false;
+  recordPreview = false;
   clickedItemId: string;
   sortOption = 'new:first';
   sub: Subscription;
@@ -44,6 +46,27 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+  }
+
+  showDropdownMenu(e: Event, id: string) {
+    e.stopPropagation();
+    this.clickedItemId = id;
+    this.dropdownMenu = true;
+    this.recordPreview = false;
+  }
+
+  showRecordPreview(e: Event) {
+    e.stopPropagation();
+    this.recordPreview = true;
+    this.dropdownMenu = false;
+  }
+
+  dropdown(id: string) {
+    return this.clickedItemId === id && this.dropdownMenu ? true : false;
+  }
+
+  preview(id: string) {
+    return this.clickedItemId === id && this.recordPreview ? true : false;
   }
 
   closePopup(e: Event) {

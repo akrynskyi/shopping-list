@@ -41,27 +41,43 @@
       <div class="record__menu">
         <button
           class="btn b-icon small"
-          (click)="clickedItemId = record.id"
+          (click)="showDropdownMenu($event, record.id)"
         >
           <i class="fas fa-ellipsis-v"></i>
         </button>
         <ul
           class="dropdown-menu"
-          *ngIf="clickedItemId === record.id"
+          *ngIf="dropdown(record.id)"
+          (clickOutside)="dropdownMenu = false"
         >
-          <li>
-            <i
-              class="fas fa-times"
-              (click)="clickedItemId = null"
-            ></i>
+          <li (click)="showRecordPreview($event)">
+            Preview
           </li>
           <li (click)="deleteRecord(record)">
             Delete
           </li>
-          <li>
-            Preview
+        </ul>
+      </div>
+    </div>
+    <div
+      class="record__preview"
+      *ngIf="preview(record.id)"
+    >
+      <div (clickOutside)="recordPreview = false">
+        <ul
+          *ngIf="record.shoppingList; else placeholder"
+        >
+          <li
+            *ngFor="let item of record.shoppingList; let idx = index"
+            class="sh-list-item"
+          >
+            <small>{{ idx + 1}}.</small>
+            <span>{{ item.name }}</span>
           </li>
         </ul>
+        <ng-template #placeholder>
+          <p>List is empty...</p>
+        </ng-template>
       </div>
     </div>
   </li>

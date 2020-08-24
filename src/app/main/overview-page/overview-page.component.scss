@@ -34,6 +34,7 @@
 
 .record {
   cursor: pointer;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -77,6 +78,60 @@
   &__menu {
     position: relative;
     margin-left: 15px;
+  }
+
+  &__preview {
+    position: absolute;
+    z-index: 5;
+    top: 72px;
+    left: -8px;
+    right: 0;
+    width: 100%;
+    padding: 25px;
+    min-width: 740px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: var(--def);
+    border: 1px solid var(--neutral-placeholder);
+    box-shadow: 0 8px 24px rgba(60,64,67,.3);
+
+    &::after {
+      content: "";
+      position: absolute;
+      border: 8px solid transparent;
+      border-top-color: var(--def);
+      bottom: 100%;
+      left: 44px;
+      transform: rotate(180deg);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      border: 8px solid transparent;
+      border-top-color: var(--neutral-placeholder);
+      top: -17px;
+      left: 44px;
+      transform: rotate(180deg);
+    }
+
+    & > div {
+      padding: 5px;
+      overflow: auto;
+      max-height: 220px;
+
+      .sh-list-item {
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        & > span {
+          margin-left: 5px;
+        }
+      }
+    }
   }
 }
 

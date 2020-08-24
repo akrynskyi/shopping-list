@@ -132,5 +132,9 @@
 
   &__dropdown {
     @include dropdown-menu;
+
+    & > li > a {
+      color: #000;
+    }
   }
 }
