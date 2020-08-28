@@ -36,6 +36,11 @@ export const selectUser = createSelector(
 
 export const selectRecordsState = createFeatureSelector<fromRecords.RecordsState>('records');
 
+export const selectRecordsLoading = createSelector(
+  selectRecordsState,
+  fromRecords.getRecordsLoading
+);
+
 export const selectAllRecords = createSelector(
   selectRecordsState,
   fromRecords.getAllRecords
@@ -49,7 +54,13 @@ export const selectRecord = createSelector(
 export const selectShoppingListItem = createSelector(
   selectRecordsState,
   (state: fromRecords.RecordsState, { id }) => {
-    return state.selectedRecord.shoppingList.find(item => item.id === id);
+    return state.selectedRecord.shoppingList.find(item => {
+      if (typeof(item.id) === 'number') {
+        return item.id === +id;
+      }
+
+      return item.id === id;
+    });
   }
 );
 

@@ -31,9 +31,8 @@ export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.sub = this.store
       .pipe(select(selectRecord))
       .subscribe(rec => {
-        if (!rec) return;
-        this.selectedRecord = rec;
-        this.listName = rec.name;
+        this.selectedRecord = rec ? rec : null;
+        this.listName = rec ? rec.name : 'No record selected';
       });
     this.user$ = this.store.pipe(select(selectUser));
   }
@@ -46,6 +45,11 @@ export class NavbarComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+  }
+
+  showDropdown(e: Event) {
+    e.stopPropagation();
+    this.dropdown = true;
   }
 
   calcWidth(mask: HTMLElement, maxWidth = 500) {

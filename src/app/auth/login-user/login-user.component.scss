@@ -1,4 +1,11 @@
 @import '../../../styles/mixins/auth-form.mixin.scss';
+@import '../../../styles/mixins/title.mixin.scss';
+
+.heading {
+  @include title(36px, 300);
+
+  text-align: center;
+}
 
 .form {
   @include auth-form;

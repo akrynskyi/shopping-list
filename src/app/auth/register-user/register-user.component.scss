@@ -1,7 +1,14 @@
 @import '../../../styles/mixins/auth-form.mixin.scss';
+@import '../../../styles/mixins/title.mixin.scss';
 
 .wrapper {
   margin: 50px 0px;
+}
+
+.heading {
+  @include title(36px, 300);
+
+  text-align: center;
 }
 
 .form {

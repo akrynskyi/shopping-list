@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { UserCred } from 'src/app/shared/models/auth.models';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { UserCred } from 'src/app/shared/models/auth.models';
 import { UserState } from 'src/app/state/user/user.reducer';
 import { LoginUser } from 'src/app/state/user/user.actions';
 
@@ -19,15 +18,12 @@ export class LoginUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private titleService: Title,
-    private auth: AuthService,
     private store: Store<UserState>
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Sign in | Shopping List');
     this.form = this.initForm();
-    console.log(this.auth.token);
-    console.log(this.auth.userId);
   }
 
   initForm() {

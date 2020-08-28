@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { TitleCasePipe } from '@angular/common';
-import { Purchase } from 'src/app/shared/models/purchase.model';
-import { Store, select } from '@ngrx/store';
-import { RecordsState } from 'src/app/state/records/records.reducer';
 import { Observable } from 'rxjs';
-import { Record } from 'src/app/state/records/records.model';
+
+import { Store, select } from '@ngrx/store';
 import { selectRecord } from 'src/app/state';
+import { Record } from 'src/app/state/records/records.model';
+import { Purchase } from 'src/app/shared/models/purchase.model';
+import { RecordsState } from 'src/app/state/records/records.reducer';
 
 @Component({
   selector: 'app-records-page',
@@ -19,9 +19,8 @@ export class RecordsPageComponent implements OnInit {
   selectedRecord$: Observable<Record>;
 
   constructor(
-    private titleCasePipe: TitleCasePipe,
-    private titleService: Title,
     private router: Router,
+    private titleService: Title,
     private store: Store<RecordsState>
   ) { }
 

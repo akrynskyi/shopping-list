@@ -18,7 +18,6 @@ export class AuthGuard implements CanLoad {
   }
 
   canLoad(route: Route): boolean {
-    console.log(route.path);
     return this.authService.token ? true : this.redirectToLogin();
   }
 

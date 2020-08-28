@@ -17,7 +17,7 @@ export class PurchaseResolver implements Resolve<Purchase> {
     let item: Purchase;
 
     this.store.pipe(
-      select(selectShoppingListItem, { id: +route.paramMap.get('id') }),
+      select(selectShoppingListItem, { id: route.paramMap.get('id') }),
       take(1)
     ).subscribe(it => item = it);
 

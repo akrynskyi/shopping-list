@@ -14,7 +14,7 @@
       </p>
       <a
         *ngIf="user$ | async as user"
-        [routerLink]="['../home', 'profile', user.username]"
+        [routerLink]="['../home', 'profile', user.username.toLowerCase()]"
       >@{{ user.username }}</a>
     </div>
   </footer>

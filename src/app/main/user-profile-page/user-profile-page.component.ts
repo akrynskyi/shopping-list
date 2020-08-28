@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { UserState } from 'src/app/state/user/user.reducer';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/state/user/user.model';
+
 import { selectUser } from 'src/app/state';
+import { User } from 'src/app/state/user/user.model';
+import { UserState } from 'src/app/state/user/user.reducer';
 import { UpdateUser } from 'src/app/state/user/user.actions';
 
 @Component({
